@@ -1,0 +1,26 @@
+{
+  "name": "leetcode-500",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Full-stack study system for the 500 most-asked LeetCode questions of 2025-2026: categorized by pattern, mapped to companies, explained with diagrams and complexity analysis.",
+  "keywords": [
+    "leetcode",
+    "algorithms",
+    "data-structures",
+    "interview-preparation",
+    "coding-interview",
+    "nextjs",
+    "typescript"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "start": "npm --prefix web run start",
+    "lint": "npm --prefix web run lint",
+    "web:install": "npm --prefix web install"
+  },
+  "workspaces": [
+    "web"
+  ]
+}
