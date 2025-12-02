@@ -1,0 +1,17 @@
+{
+  "name": "@leetcode-500/data",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Typed source-of-truth dataset for the LeetCode 500 study system.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./types": "./types.ts",
+    "./categories": "./categories.ts",
+    "./companies": "./companies.ts",
+    "./problems": "./problems.ts"
+  }
+}
