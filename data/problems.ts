@@ -651,6 +651,546 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     hints: ["Area is limited by the shorter line.", "Always move the shorter wall inward."],
     relatedIds: [42],
   },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Sliding Window
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 121,
+    slug: "best-time-to-buy-and-sell-stock",
+    title: "Best Time to Buy and Sell Stock",
+    difficulty: "Easy",
+    category: "sliding-window",
+    patterns: ["Running Minimum", "One Pass"],
+    companies: ["amazon", "meta", "google", "microsoft", "bloomberg", "apple"],
+    frequency: 90,
+    leetcodeUrl: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    description:
+      "You are given prices where `prices[i]` is the price of a stock on day i. Buy on one day and sell on a later day. Return the maximum profit, or 0 if no profit is possible.",
+    examples: [
+      { input: "prices = [7,1,5,3,6,4]", output: "5", explanation: "Buy at 1 (day 2), sell at 6 (day 5)." },
+      { input: "prices = [7,6,4,3,1]", output: "0", explanation: "Prices only fall — no profit." },
+    ],
+    constraints: ["1 ≤ prices.length ≤ 10^5", "0 ≤ prices[i] ≤ 10^4"],
+    intuition:
+      "Think of a window whose left edge is the cheapest day seen so far. For each day, the best sale is today's price minus that running minimum. Track both the minimum and the best profit in a single sweep.",
+    approach: [
+      "Track minPrice = +∞ and best = 0.",
+      "For each price: update minPrice with the smaller of itself and the price.",
+      "Compute price - minPrice and update best if larger.",
+      "Return best.",
+    ],
+    diagram: `graph LR
+  A["7 → min=7"] --> B["1 → min=1"] --> C["5 → profit 4"] --> D["6 → profit 5"] --> E["best = 5"]`,
+    complexity: { time: "O(n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "One Pass",
+        code: `def max_profit(prices: list[int]) -> int:
+    min_price = float("inf")
+    best = 0
+    for price in prices:
+        min_price = min(min_price, price)
+        best = max(best, price - min_price)
+    return best`,
+      },
+      {
+        language: "typescript",
+        label: "One Pass",
+        code: `function maxProfit(prices: number[]): number {
+  let minPrice = Infinity, best = 0;
+  for (const price of prices) {
+    minPrice = Math.min(minPrice, price);
+    best = Math.max(best, price - minPrice);
+  }
+  return best;
+}`,
+      },
+    ],
+    runner: {
+      entry: "maxProfit",
+      comparison: "deep",
+      jsStarter: `function maxProfit(prices) {
+  // Return the maximum profit from one buy and one later sell.
+  // TODO: implement
+}`,
+      jsReference: `function maxProfit(prices) {
+  let minPrice = Infinity, best = 0;
+  for (const price of prices) {
+    minPrice = Math.min(minPrice, price);
+    best = Math.max(best, price - minPrice);
+  }
+  return best;
+}`,
+    },
+    tests: [
+      { name: "profit exists", args: [[7, 1, 5, 3, 6, 4]], expected: 5 },
+      { name: "no profit", args: [[7, 6, 4, 3, 1]], expected: 0 },
+      { name: "single day", args: [[5]], expected: 0 },
+      { name: "rising", args: [[1, 2, 3, 4, 5]], expected: 4 },
+    ],
+    hints: ["Track the cheapest price so far.", "Best profit = today − running minimum."],
+    relatedIds: [122, 53],
+  },
+  {
+    id: 3,
+    slug: "longest-substring-without-repeating-characters",
+    title: "Longest Substring Without Repeating Characters",
+    difficulty: "Medium",
+    category: "sliding-window",
+    patterns: ["Variable Window", "Hash Set"],
+    companies: ["amazon", "google", "meta", "microsoft", "bloomberg", "adobe", "apple"],
+    frequency: 92,
+    leetcodeUrl: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    description:
+      "Given a string `s`, return the length of the longest substring that contains no repeating characters.",
+    examples: [
+      { input: 's = "abcabcbb"', output: "3", explanation: '"abc" has length 3.' },
+      { input: 's = "bbbbb"', output: "1" },
+      { input: 's = "pwwkew"', output: "3", explanation: '"wke" — note "pwke" is a subsequence, not a substring.' },
+    ],
+    constraints: ["0 ≤ s.length ≤ 5·10^4", "s consists of English letters, digits, symbols and spaces."],
+    intuition:
+      "Maintain a window with all-unique characters. Expand the right edge one character at a time; whenever the new character is already inside, shrink from the left until the duplicate is gone. The largest window width seen is the answer.",
+    approach: [
+      "Keep a set of characters currently in the window and a left index.",
+      "For each right index, while s[right] is in the set, remove s[left] and advance left.",
+      "Add s[right]; update the best length with right - left + 1.",
+      "Return the best length.",
+    ],
+    diagram: `graph LR
+  A["right expands →"] --> B{"duplicate?"}
+  B -- yes --> C["shrink left until unique"]
+  B -- no --> D["update best length"]`,
+    complexity: { time: "O(n)", space: "O(min(n, alphabet))" },
+    solutions: [
+      {
+        language: "python",
+        label: "Sliding Window",
+        code: `def length_of_longest_substring(s: str) -> int:
+    seen: set[str] = set()
+    left = best = 0
+    for right, ch in enumerate(s):
+        while ch in seen:
+            seen.remove(s[left])
+            left += 1
+        seen.add(ch)
+        best = max(best, right - left + 1)
+    return best`,
+      },
+      {
+        language: "typescript",
+        label: "Sliding Window",
+        code: `function lengthOfLongestSubstring(s: string): number {
+  const seen = new Set<string>();
+  let left = 0, best = 0;
+  for (let right = 0; right < s.length; right++) {
+    while (seen.has(s[right])) {
+      seen.delete(s[left]);
+      left++;
+    }
+    seen.add(s[right]);
+    best = Math.max(best, right - left + 1);
+  }
+  return best;
+}`,
+      },
+    ],
+    runner: {
+      entry: "lengthOfLongestSubstring",
+      comparison: "deep",
+      jsStarter: `function lengthOfLongestSubstring(s) {
+  // Return the length of the longest substring without repeats.
+  // TODO: implement
+}`,
+      jsReference: `function lengthOfLongestSubstring(s) {
+  const seen = new Set();
+  let left = 0, best = 0;
+  for (let right = 0; right < s.length; right++) {
+    while (seen.has(s[right])) { seen.delete(s[left]); left++; }
+    seen.add(s[right]);
+    best = Math.max(best, right - left + 1);
+  }
+  return best;
+}`,
+    },
+    tests: [
+      { name: "abc", args: ["abcabcbb"], expected: 3 },
+      { name: "all same", args: ["bbbbb"], expected: 1 },
+      { name: "pwwkew", args: ["pwwkew"], expected: 3 },
+      { name: "empty", args: [""], expected: 0 },
+      { name: "spaces", args: [" "], expected: 1 },
+    ],
+    hints: ["Grow a window and shrink on a repeat.", "A set tracks what's inside the window."],
+    relatedIds: [159, 340, 76],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Stack
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 20,
+    slug: "valid-parentheses",
+    title: "Valid Parentheses",
+    difficulty: "Easy",
+    category: "stack",
+    patterns: ["Stack", "Matching Pairs"],
+    companies: ["amazon", "meta", "google", "microsoft", "bloomberg", "apple"],
+    frequency: 89,
+    leetcodeUrl: "https://leetcode.com/problems/valid-parentheses/",
+    description:
+      "Given a string `s` of just the characters '()[]{}', determine if the brackets are validly opened and closed in the correct order and nesting.",
+    examples: [
+      { input: 's = "()[]{}"', output: "true" },
+      { input: 's = "(]"', output: "false" },
+      { input: 's = "([)]"', output: "false" },
+    ],
+    constraints: ["1 ≤ s.length ≤ 10^4", "s consists only of '()[]{}'."],
+    intuition:
+      "Brackets must close in reverse order of opening — that's exactly LIFO. Push every opener; on a closer, the top of the stack must be its matching opener, otherwise it's invalid. A valid string ends with an empty stack.",
+    approach: [
+      "Map each closing bracket to its opening bracket.",
+      "Scan: push opening brackets onto a stack.",
+      "On a closing bracket, pop and check it matches; mismatch or empty → false.",
+      "Valid iff the stack is empty at the end.",
+    ],
+    diagram: `graph LR
+  A["( push"] --> B["[ push"] --> C["] pop matches ["] --> D[") pop matches ("] --> E["empty → true"]`,
+    complexity: { time: "O(n)", space: "O(n)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Stack",
+        code: `def is_valid(s: str) -> bool:
+    pairs = {")": "(", "]": "[", "}": "{"}
+    stack: list[str] = []
+    for ch in s:
+        if ch in pairs:
+            if not stack or stack.pop() != pairs[ch]:
+                return False
+        else:
+            stack.append(ch)
+    return not stack`,
+      },
+      {
+        language: "typescript",
+        label: "Stack",
+        code: `function isValid(s: string): boolean {
+  const pairs: Record<string, string> = { ")": "(", "]": "[", "}": "{" };
+  const stack: string[] = [];
+  for (const ch of s) {
+    if (ch in pairs) {
+      if (stack.pop() !== pairs[ch]) return false;
+    } else {
+      stack.push(ch);
+    }
+  }
+  return stack.length === 0;
+}`,
+      },
+    ],
+    runner: {
+      entry: "isValid",
+      comparison: "deep",
+      jsStarter: `function isValid(s) {
+  // Return true if all brackets are correctly matched and nested.
+  // TODO: implement
+}`,
+      jsReference: `function isValid(s) {
+  const pairs = { ")": "(", "]": "[", "}": "{" };
+  const stack = [];
+  for (const ch of s) {
+    if (ch in pairs) {
+      if (stack.pop() !== pairs[ch]) return false;
+    } else {
+      stack.push(ch);
+    }
+  }
+  return stack.length === 0;
+}`,
+    },
+    tests: [
+      { name: "all types", args: ["()[]{}"], expected: true },
+      { name: "mismatch", args: ["(]"], expected: false },
+      { name: "bad nesting", args: ["([)]"], expected: false },
+      { name: "nested ok", args: ["{[]}"], expected: true },
+      { name: "unclosed", args: ["("], expected: false },
+    ],
+    hints: ["Closers must match the most recent opener.", "That's a stack."],
+    relatedIds: [22, 32, 1249],
+  },
+  {
+    id: 739,
+    slug: "daily-temperatures",
+    title: "Daily Temperatures",
+    difficulty: "Medium",
+    category: "stack",
+    patterns: ["Monotonic Stack"],
+    companies: ["amazon", "google", "meta", "microsoft", "bloomberg"],
+    frequency: 72,
+    leetcodeUrl: "https://leetcode.com/problems/daily-temperatures/",
+    description:
+      "Given daily `temperatures`, return an array `answer` where `answer[i]` is the number of days you must wait after day i to get a warmer temperature, or 0 if there is no future warmer day.",
+    examples: [
+      { input: "temperatures = [73,74,75,71,69,72,76,73]", output: "[1,1,4,2,1,1,0,0]" },
+      { input: "temperatures = [30,40,50,60]", output: "[1,1,1,0]" },
+    ],
+    constraints: ["1 ≤ temperatures.length ≤ 10^5", "30 ≤ temperatures[i] ≤ 100"],
+    intuition:
+      "Keep a stack of days that are still waiting for a warmer day, with temperatures decreasing down the stack. When today is warmer than the day on top, that day's wait is resolved — pop it and record the gap. Each day is pushed and popped once.",
+    approach: [
+      "Initialize answer with zeros and an empty stack of indices.",
+      "For each day i, while the stack's top day is cooler than today, pop it and set answer[top] = i - top.",
+      "Push i.",
+      "Return answer.",
+    ],
+    diagram: `graph LR
+  A["push cooler days"] --> B{"today warmer than top?"}
+  B -- yes --> C["pop, answer = i - top"]
+  C --> B
+  B -- no --> D["push i"]`,
+    complexity: { time: "O(n)", space: "O(n)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Monotonic Stack",
+        code: `def daily_temperatures(temperatures: list[int]) -> list[int]:
+    answer = [0] * len(temperatures)
+    stack: list[int] = []  # indices, temps decreasing
+    for i, t in enumerate(temperatures):
+        while stack and temperatures[stack[-1]] < t:
+            j = stack.pop()
+            answer[j] = i - j
+        stack.append(i)
+    return answer`,
+      },
+      {
+        language: "typescript",
+        label: "Monotonic Stack",
+        code: `function dailyTemperatures(temperatures: number[]): number[] {
+  const answer = new Array<number>(temperatures.length).fill(0);
+  const stack: number[] = [];
+  for (let i = 0; i < temperatures.length; i++) {
+    while (stack.length && temperatures[stack[stack.length - 1]] < temperatures[i]) {
+      const j = stack.pop()!;
+      answer[j] = i - j;
+    }
+    stack.push(i);
+  }
+  return answer;
+}`,
+      },
+    ],
+    runner: {
+      entry: "dailyTemperatures",
+      comparison: "deep",
+      jsStarter: `function dailyTemperatures(temperatures) {
+  // For each day, how many days until a warmer temperature?
+  // TODO: implement
+}`,
+      jsReference: `function dailyTemperatures(temperatures) {
+  const answer = new Array(temperatures.length).fill(0);
+  const stack = [];
+  for (let i = 0; i < temperatures.length; i++) {
+    while (stack.length && temperatures[stack[stack.length - 1]] < temperatures[i]) {
+      const j = stack.pop();
+      answer[j] = i - j;
+    }
+    stack.push(i);
+  }
+  return answer;
+}`,
+    },
+    tests: [
+      { name: "classic", args: [[73, 74, 75, 71, 69, 72, 76, 73]], expected: [1, 1, 4, 2, 1, 1, 0, 0] },
+      { name: "strictly rising", args: [[30, 40, 50, 60]], expected: [1, 1, 1, 0] },
+      { name: "strictly falling", args: [[60, 50, 40, 30]], expected: [0, 0, 0, 0] },
+    ],
+    hints: ["Keep indices waiting for a warmer day.", "Resolve them when a warmer day arrives."],
+    relatedIds: [496, 503, 84],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Binary Search
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 704,
+    slug: "binary-search",
+    title: "Binary Search",
+    difficulty: "Easy",
+    category: "binary-search",
+    patterns: ["Classic Binary Search"],
+    companies: ["amazon", "google", "microsoft", "apple"],
+    frequency: 80,
+    leetcodeUrl: "https://leetcode.com/problems/binary-search/",
+    description:
+      "Given a sorted (ascending) array of distinct integers `nums` and a `target`, return its index, or -1 if it is absent. Run in O(log n).",
+    examples: [
+      { input: "nums = [-1,0,3,5,9,12], target = 9", output: "4" },
+      { input: "nums = [-1,0,3,5,9,12], target = 2", output: "-1" },
+    ],
+    constraints: ["1 ≤ nums.length ≤ 10^4", "nums is sorted ascending with distinct values."],
+    intuition:
+      "Because the array is sorted, comparing the middle element to the target tells you which half can possibly contain it. Discard the other half each step, shrinking the search space geometrically.",
+    approach: [
+      "Set lo = 0, hi = n - 1.",
+      "While lo ≤ hi, compute mid = lo + (hi - lo) / 2 to avoid overflow.",
+      "If nums[mid] == target return mid; if smaller, search right (lo = mid + 1); else search left (hi = mid - 1).",
+      "Return -1 if the loop ends.",
+    ],
+    diagram: `graph LR
+  A["lo ... mid ... hi"] --> B{"nums[mid] vs target"}
+  B -- "=" --> C["return mid"]
+  B -- "<" --> D["lo = mid + 1"]
+  B -- ">" --> E["hi = mid - 1"]`,
+    complexity: { time: "O(log n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Iterative",
+        code: `def search(nums: list[int], target: int) -> int:
+    lo, hi = 0, len(nums) - 1
+    while lo <= hi:
+        mid = lo + (hi - lo) // 2
+        if nums[mid] == target:
+            return mid
+        if nums[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1`,
+      },
+      {
+        language: "typescript",
+        label: "Iterative",
+        code: `function search(nums: number[], target: number): number {
+  let lo = 0, hi = nums.length - 1;
+  while (lo <= hi) {
+    const mid = lo + ((hi - lo) >> 1);
+    if (nums[mid] === target) return mid;
+    if (nums[mid] < target) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return -1;
+}`,
+      },
+    ],
+    runner: {
+      entry: "search",
+      comparison: "deep",
+      jsStarter: `function search(nums, target) {
+  // Return the index of target in the sorted array, or -1.
+  // TODO: implement
+}`,
+      jsReference: `function search(nums, target) {
+  let lo = 0, hi = nums.length - 1;
+  while (lo <= hi) {
+    const mid = lo + ((hi - lo) >> 1);
+    if (nums[mid] === target) return mid;
+    if (nums[mid] < target) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return -1;
+}`,
+    },
+    tests: [
+      { name: "found", args: [[-1, 0, 3, 5, 9, 12], 9], expected: 4 },
+      { name: "absent", args: [[-1, 0, 3, 5, 9, 12], 2], expected: -1 },
+      { name: "first", args: [[5], 5], expected: 0 },
+      { name: "missing single", args: [[5], -5], expected: -1 },
+    ],
+    hints: ["Use lo + (hi - lo)/2 to avoid overflow.", "Discard half each iteration."],
+    relatedIds: [33, 35, 374],
+  },
+  {
+    id: 875,
+    slug: "koko-eating-bananas",
+    title: "Koko Eating Bananas",
+    difficulty: "Medium",
+    category: "binary-search",
+    patterns: ["Binary Search on Answer"],
+    companies: ["amazon", "google", "meta", "bloomberg", "doordash"],
+    frequency: 73,
+    leetcodeUrl: "https://leetcode.com/problems/koko-eating-bananas/",
+    description:
+      "Koko has `piles` of bananas and `h` hours before the guards return. At speed k bananas/hour she eats ⌈pile / k⌉ hours per pile. Return the minimum integer speed k that lets her finish all piles within h hours.",
+    examples: [
+      { input: "piles = [3,6,7,11], h = 8", output: "4" },
+      { input: "piles = [30,11,23,4,20], h = 5", output: "30" },
+    ],
+    constraints: ["1 ≤ piles.length ≤ 10^4", "piles.length ≤ h ≤ 10^9", "1 ≤ piles[i] ≤ 10^9"],
+    intuition:
+      "The hours needed decrease monotonically as speed increases — a perfect setup for binary searching the answer. The slowest workable speed lies between 1 and max(pile). Test the middle speed; if she finishes in time, try slower, otherwise faster.",
+    approach: [
+      "Binary search k over [1, max(piles)].",
+      "For a candidate k, total hours = Σ ⌈pile / k⌉.",
+      "If hours ≤ h, k is feasible — record it and search slower (hi = mid - 1).",
+      "Otherwise search faster (lo = mid + 1). Return the smallest feasible k.",
+    ],
+    diagram: `graph LR
+  A["speed range [1, max]"] --> B{"hours(mid) ≤ h?"}
+  B -- yes --> C["try slower"]
+  B -- no --> D["need faster"]`,
+    complexity: { time: "O(n log m)", space: "O(1)", note: "m = max pile size." },
+    solutions: [
+      {
+        language: "python",
+        label: "Search on Answer",
+        code: `import math
+
+def min_eating_speed(piles: list[int], h: int) -> int:
+    lo, hi = 1, max(piles)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        hours = sum(math.ceil(p / mid) for p in piles)
+        if hours <= h:
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo`,
+      },
+      {
+        language: "typescript",
+        label: "Search on Answer",
+        code: `function minEatingSpeed(piles: number[], h: number): number {
+  let lo = 1, hi = Math.max(...piles);
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    const hours = piles.reduce((s, p) => s + Math.ceil(p / mid), 0);
+    if (hours <= h) hi = mid;
+    else lo = mid + 1;
+  }
+  return lo;
+}`,
+      },
+    ],
+    runner: {
+      entry: "minEatingSpeed",
+      comparison: "deep",
+      jsStarter: `function minEatingSpeed(piles, h) {
+  // Return the minimum integer speed to finish within h hours.
+  // TODO: implement
+}`,
+      jsReference: `function minEatingSpeed(piles, h) {
+  let lo = 1, hi = Math.max(...piles);
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    const hours = piles.reduce((s, p) => s + Math.ceil(p / mid), 0);
+    if (hours <= h) hi = mid;
+    else lo = mid + 1;
+  }
+  return lo;
+}`,
+    },
+    tests: [
+      { name: "classic", args: [[3, 6, 7, 11], 8], expected: 4 },
+      { name: "tight", args: [[30, 11, 23, 4, 20], 5], expected: 30 },
+      { name: "loose", args: [[30, 11, 23, 4, 20], 6], expected: 23 },
+    ],
+    hints: ["Hours needed is monotonic in speed.", "Binary search the smallest feasible speed."],
+    relatedIds: [1011, 410, 704],
+  },
 ];
 
 export default problems;
