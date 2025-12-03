@@ -21,6 +21,7 @@
     "web:install": "npm --prefix web install"
   },
   "workspaces": [
+    "data",
     "web"
   ]
 }
