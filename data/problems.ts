@@ -1191,6 +1191,548 @@ def min_eating_speed(piles: list[int], h: int) -> int:
     hints: ["Hours needed is monotonic in speed.", "Binary search the smallest feasible speed."],
     relatedIds: [1011, 410, 704],
   },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Linked List
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 206,
+    slug: "reverse-linked-list",
+    title: "Reverse Linked List",
+    difficulty: "Easy",
+    category: "linked-list",
+    patterns: ["In-place Reversal", "Pointers"],
+    companies: ["amazon", "meta", "microsoft", "apple", "google", "adobe"],
+    frequency: 91,
+    leetcodeUrl: "https://leetcode.com/problems/reverse-linked-list/",
+    description:
+      "Reverse a singly linked list and return the new head. The playground uses array form for the list (e.g. `[1,2,3]` represents 1→2→3).",
+    examples: [
+      { input: "head = [1,2,3,4,5]", output: "[5,4,3,2,1]" },
+      { input: "head = []", output: "[]" },
+    ],
+    constraints: ["0 ≤ list length ≤ 5000", "-5000 ≤ Node.val ≤ 5000"],
+    intuition:
+      "Walk the list once, flipping each node's `next` to point backward. Keep three references — previous, current, and the saved next — so you never lose the rest of the list while rewiring a pointer.",
+    approach: [
+      "Set prev = null, curr = head.",
+      "While curr: save next = curr.next, point curr.next = prev, advance prev = curr, curr = next.",
+      "When curr is null, prev is the new head.",
+    ],
+    diagram: `graph LR
+  N1["1"] -->|was| N2["2"] -->|was| N3["3"]
+  R3["3"] -->|now| R2["2"] -->|now| R1["1"]`,
+    complexity: { time: "O(n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Iterative",
+        code: `class ListNode:
+    def __init__(self, val=0, nxt=None):
+        self.val = val
+        self.next = nxt
+
+def reverse_list(head: ListNode | None) -> ListNode | None:
+    prev = None
+    while head:
+        nxt = head.next
+        head.next = prev
+        prev = head
+        head = nxt
+    return prev`,
+      },
+      {
+        language: "typescript",
+        label: "Iterative",
+        code: `class ListNode {
+  val: number;
+  next: ListNode | null = null;
+  constructor(val = 0, next: ListNode | null = null) {
+    this.val = val;
+    this.next = next;
+  }
+}
+
+function reverseList(head: ListNode | null): ListNode | null {
+  let prev: ListNode | null = null;
+  while (head) {
+    const next = head.next;
+    head.next = prev;
+    prev = head;
+    head = next;
+  }
+  return prev;
+}`,
+      },
+    ],
+    runner: {
+      entry: "reverseList",
+      comparison: "deep",
+      jsStarter: `function reverseList(values) {
+  // 'values' is the list as an array, e.g. [1,2,3]. Return the reversed array.
+  // Tip: build nodes if you like, or operate on the array directly.
+  // TODO: implement
+}`,
+      jsReference: `function reverseList(values) {
+  // Build a real singly linked list from the array.
+  let head = null;
+  for (let i = values.length - 1; i >= 0; i--) head = { val: values[i], next: head };
+  // Classic in-place reversal.
+  let prev = null;
+  while (head) {
+    const next = head.next;
+    head.next = prev;
+    prev = head;
+    head = next;
+  }
+  // Serialize back to an array for grading.
+  const out = [];
+  for (let n = prev; n; n = n.next) out.push(n.val);
+  return out;
+}`,
+    },
+    tests: [
+      { name: "five nodes", args: [[1, 2, 3, 4, 5]], expected: [5, 4, 3, 2, 1] },
+      { name: "two nodes", args: [[1, 2]], expected: [2, 1] },
+      { name: "empty", args: [[]], expected: [] },
+      { name: "single", args: [[7]], expected: [7] },
+    ],
+    hints: ["Track previous, current, and next.", "Flip next, then step forward."],
+    relatedIds: [92, 25, 234],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Trees
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 104,
+    slug: "maximum-depth-of-binary-tree",
+    title: "Maximum Depth of Binary Tree",
+    difficulty: "Easy",
+    category: "trees",
+    patterns: ["DFS", "Recursion"],
+    companies: ["amazon", "google", "microsoft", "apple", "linkedin"],
+    frequency: 78,
+    leetcodeUrl: "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+    description:
+      "Return the maximum depth of a binary tree (the number of nodes along the longest root-to-leaf path). The playground encodes the tree as a level-order array with `null` for missing children.",
+    examples: [
+      { input: "root = [3,9,20,null,null,15,7]", output: "3" },
+      { input: "root = [1,null,2]", output: "2" },
+    ],
+    constraints: ["0 ≤ number of nodes ≤ 10^4", "-100 ≤ Node.val ≤ 100"],
+    intuition:
+      "A tree's depth is one more than the deeper of its two subtrees. That recurrence is the entire solution: recurse left and right, take the max, add one. An empty subtree contributes depth 0.",
+    approach: [
+      "If the node is null, return 0.",
+      "Recursively compute the depth of the left and right children.",
+      "Return 1 + max(left, right).",
+    ],
+    diagram: `graph TD
+  A["3"] --> B["9"]
+  A --> C["20"]
+  C --> D["15"]
+  C --> E["7"]`,
+    complexity: { time: "O(n)", space: "O(h)", note: "h = tree height (recursion stack)." },
+    solutions: [
+      {
+        language: "python",
+        label: "DFS",
+        code: `class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def max_depth(root: TreeNode | None) -> int:
+    if not root:
+        return 0
+    return 1 + max(max_depth(root.left), max_depth(root.right))`,
+      },
+      {
+        language: "typescript",
+        label: "DFS",
+        code: `class TreeNode {
+  val: number;
+  left: TreeNode | null = null;
+  right: TreeNode | null = null;
+  constructor(val = 0) {
+    this.val = val;
+  }
+}
+
+function maxDepth(root: TreeNode | null): number {
+  if (!root) return 0;
+  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}`,
+      },
+    ],
+    runner: {
+      entry: "maxDepth",
+      comparison: "deep",
+      jsStarter: `function maxDepth(level) {
+  // 'level' is the tree as a LeetCode level-order array (null = missing child).
+  // TODO: build the tree (helper provided in the reference) and return its depth.
+}`,
+      jsReference: `function maxDepth(level) {
+  // Build a binary tree from a LeetCode level-order array.
+  function build(arr) {
+    if (!arr.length || arr[0] === null) return null;
+    const root = { val: arr[0], left: null, right: null };
+    const queue = [root];
+    let i = 1;
+    while (queue.length && i < arr.length) {
+      const node = queue.shift();
+      if (i < arr.length) {
+        const lv = arr[i++];
+        if (lv !== null) { node.left = { val: lv, left: null, right: null }; queue.push(node.left); }
+      }
+      if (i < arr.length) {
+        const rv = arr[i++];
+        if (rv !== null) { node.right = { val: rv, left: null, right: null }; queue.push(node.right); }
+      }
+    }
+    return root;
+  }
+  const depth = (n) => (n ? 1 + Math.max(depth(n.left), depth(n.right)) : 0);
+  return depth(build(level));
+}`,
+    },
+    tests: [
+      { name: "balanced-ish", args: [[3, 9, 20, null, null, 15, 7]], expected: 3 },
+      { name: "right lean", args: [[1, null, 2]], expected: 2 },
+      { name: "empty", args: [[]], expected: 0 },
+      { name: "single", args: [[0]], expected: 1 },
+    ],
+    hints: ["Depth = 1 + max(left, right).", "Base case: null → 0."],
+    relatedIds: [110, 111, 543],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Tries
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 208,
+    slug: "implement-trie-prefix-tree",
+    title: "Implement Trie (Prefix Tree)",
+    difficulty: "Medium",
+    category: "tries",
+    patterns: ["Trie", "Design"],
+    companies: ["amazon", "google", "microsoft", "meta", "bloomberg"],
+    frequency: 70,
+    leetcodeUrl: "https://leetcode.com/problems/implement-trie-prefix-tree/",
+    description:
+      "Implement a trie supporting `insert(word)`, `search(word)` (exact match), and `startsWith(prefix)`. The playground replays an operation list and grades the returned results (`null` for void operations).",
+    examples: [
+      {
+        input: 'ops = ["Trie","insert","search","search","startsWith","insert","search"], args = [[],["apple"],["apple"],["app"],["app"],["app"],["app"]]',
+        output: "[null,null,true,false,true,null,true]",
+      },
+    ],
+    constraints: ["1 ≤ word.length, prefix.length ≤ 2000", "Lowercase English letters", "Up to 3·10^4 calls total."],
+    intuition:
+      "Store words as paths down a tree of character nodes. Shared prefixes share nodes, so lookups cost only the length of the query. A boolean end-flag marks where a complete word terminates, distinguishing `search` from `startsWith`.",
+    approach: [
+      "Each node holds a map of child characters and an `isEnd` flag.",
+      "insert: walk/create nodes for each character, mark the final node isEnd.",
+      "search: walk the characters; succeed only if the path exists and ends on isEnd.",
+      "startsWith: same walk but success only requires the path to exist.",
+    ],
+    diagram: `graph TD
+  R["root"] --> A["a"] --> P1["p"] --> P2["p"]
+  P2 --> L["l (app·end)"]
+  L --> E["e (apple·end)"]`,
+    complexity: { time: "O(L) per op", space: "O(total chars)", note: "L = word/prefix length." },
+    solutions: [
+      {
+        language: "python",
+        label: "Nested dict",
+        code: `class Trie:
+    def __init__(self):
+        self.root: dict = {}
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for ch in word:
+            node = node.setdefault(ch, {})
+        node["$"] = True  # word end
+
+    def _find(self, s: str) -> dict | None:
+        node = self.root
+        for ch in s:
+            if ch not in node:
+                return None
+            node = node[ch]
+        return node
+
+    def search(self, word: str) -> bool:
+        node = self._find(word)
+        return bool(node and node.get("$"))
+
+    def startsWith(self, prefix: str) -> bool:
+        return self._find(prefix) is not None`,
+      },
+      {
+        language: "typescript",
+        label: "Nested map",
+        code: `class Trie {
+  private root: Record<string, any> = {};
+
+  insert(word: string): void {
+    let node = this.root;
+    for (const ch of word) node = node[ch] ??= {};
+    node.$ = true;
+  }
+
+  private find(s: string): Record<string, any> | null {
+    let node = this.root;
+    for (const ch of s) {
+      if (!node[ch]) return null;
+      node = node[ch];
+    }
+    return node;
+  }
+
+  search(word: string): boolean {
+    const node = this.find(word);
+    return !!(node && node.$);
+  }
+
+  startsWith(prefix: string): boolean {
+    return this.find(prefix) !== null;
+  }
+}`,
+      },
+    ],
+    runner: {
+      entry: "runTrie",
+      comparison: "deep",
+      jsStarter: `function runTrie(ops, args) {
+  // Replay the operations and return an array of results.
+  // "Trie"/"insert" return null; "search"/"startsWith" return booleans.
+  // TODO: implement the Trie and the driver loop.
+}`,
+      jsReference: `function runTrie(ops, args) {
+  class Trie {
+    constructor() { this.root = {}; }
+    insert(w) { let n = this.root; for (const c of w) n = (n[c] ??= {}); n.$ = true; }
+    find(s) { let n = this.root; for (const c of s) { if (!n[c]) return null; n = n[c]; } return n; }
+    search(w) { const n = this.find(w); return !!(n && n.$); }
+    startsWith(p) { return this.find(p) !== null; }
+  }
+  const out = [];
+  let trie = null;
+  for (let i = 0; i < ops.length; i++) {
+    const op = ops[i];
+    const a = args[i] || [];
+    if (op === "Trie") { trie = new Trie(); out.push(null); }
+    else if (op === "insert") { trie.insert(a[0]); out.push(null); }
+    else if (op === "search") out.push(trie.search(a[0]));
+    else if (op === "startsWith") out.push(trie.startsWith(a[0]));
+  }
+  return out;
+}`,
+    },
+    tests: [
+      {
+        name: "apple / app",
+        args: [
+          ["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
+          [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]],
+        ],
+        expected: [null, null, true, false, true, null, true],
+      },
+      {
+        name: "prefix only",
+        args: [
+          ["Trie", "insert", "startsWith", "search"],
+          [[], ["car"], ["ca"], ["ca"]],
+        ],
+        expected: [null, null, true, false],
+      },
+    ],
+    hints: ["One node per character.", "Mark word endings to separate search from startsWith."],
+    relatedIds: [211, 212, 14],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Heap / Priority Queue
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 215,
+    slug: "kth-largest-element-in-an-array",
+    title: "Kth Largest Element in an Array",
+    difficulty: "Medium",
+    category: "heap-priority-queue",
+    patterns: ["Heap", "Quickselect"],
+    companies: ["amazon", "meta", "google", "microsoft", "apple", "bloomberg"],
+    frequency: 83,
+    leetcodeUrl: "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+    description:
+      "Return the kth largest element in an unsorted array `nums`. This is the kth largest in sorted order, not necessarily distinct.",
+    examples: [
+      { input: "nums = [3,2,1,5,6,4], k = 2", output: "5" },
+      { input: "nums = [3,2,3,1,2,4,5,5,6], k = 4", output: "4" },
+    ],
+    constraints: ["1 ≤ k ≤ nums.length ≤ 10^5", "-10^4 ≤ nums[i] ≤ 10^4"],
+    intuition:
+      "Keep a min-heap of the k largest values seen so far. Once it exceeds size k, pop the smallest — whatever survives at the root after the full pass is exactly the kth largest. (Quickselect achieves O(n) average if you want to beat O(n log k).)",
+    approach: [
+      "Push each number onto a min-heap.",
+      "Whenever the heap grows beyond k, pop the minimum.",
+      "After processing all numbers, the heap's root is the kth largest.",
+    ],
+    diagram: `graph LR
+  A["stream of nums"] --> H["min-heap size k"]
+  H -->|"size > k"| P["pop smallest"]
+  H --> R["root = kth largest"]`,
+    complexity: { time: "O(n log k)", space: "O(k)", note: "Quickselect: O(n) average, O(1) extra." },
+    solutions: [
+      {
+        language: "python",
+        label: "Min-heap size k",
+        code: `import heapq
+
+def find_kth_largest(nums: list[int], k: int) -> int:
+    heap: list[int] = []
+    for x in nums:
+        heapq.heappush(heap, x)
+        if len(heap) > k:
+            heapq.heappop(heap)
+    return heap[0]`,
+      },
+      {
+        language: "typescript",
+        label: "Sort (clear) / heap (optimal)",
+        code: `function findKthLargest(nums: number[], k: number): number {
+  // Clear O(n log n). For O(n log k) use a size-k min-heap.
+  return [...nums].sort((a, b) => b - a)[k - 1];
+}`,
+      },
+    ],
+    runner: {
+      entry: "findKthLargest",
+      comparison: "deep",
+      jsStarter: `function findKthLargest(nums, k) {
+  // Return the kth largest element.
+  // TODO: implement
+}`,
+      jsReference: `function findKthLargest(nums, k) {
+  return [...nums].sort((a, b) => b - a)[k - 1];
+}`,
+    },
+    tests: [
+      { name: "k=2", args: [[3, 2, 1, 5, 6, 4], 2], expected: 5 },
+      { name: "with dups", args: [[3, 2, 3, 1, 2, 4, 5, 5, 6], 4], expected: 4 },
+      { name: "single", args: [[1], 1], expected: 1 },
+      { name: "largest", args: [[7, 10, 4, 3, 20, 15], 1], expected: 20 },
+    ],
+    hints: ["A size-k min-heap keeps the k largest.", "Quickselect gives O(n) average."],
+    relatedIds: [347, 703, 973],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Backtracking
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 78,
+    slug: "subsets",
+    title: "Subsets",
+    difficulty: "Medium",
+    category: "backtracking",
+    patterns: ["Backtracking", "Decision Tree"],
+    companies: ["amazon", "meta", "google", "apple", "microsoft", "uber"],
+    frequency: 77,
+    leetcodeUrl: "https://leetcode.com/problems/subsets/",
+    description:
+      "Given an array `nums` of distinct integers, return all possible subsets (the power set). The solution set must not contain duplicates; any order is accepted.",
+    examples: [
+      { input: "nums = [1,2,3]", output: "[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]" },
+      { input: "nums = [0]", output: "[[],[0]]" },
+    ],
+    constraints: ["1 ≤ nums.length ≤ 10", "-10 ≤ nums[i] ≤ 10", "All numbers are unique."],
+    intuition:
+      "Every element is either in a subset or not — that's a binary decision tree of depth n with 2ⁿ leaves. Backtracking walks the tree: record the current path at each node, then for each later index, include it, recurse, and remove it (undo) before trying the next.",
+    approach: [
+      "Start a recursion with a start index and an empty path.",
+      "At each call, record a copy of the current path as a subset.",
+      "For each index i ≥ start: append nums[i], recurse from i+1, then pop to backtrack.",
+      "Return all recorded subsets.",
+    ],
+    diagram: `graph TD
+  Root["[]"] --> A["[1]"]
+  Root --> B["[2]"]
+  Root --> C["[3]"]
+  A --> AB["[1,2]"]
+  A --> AC["[1,3]"]
+  AB --> ABC["[1,2,3]"]`,
+    complexity: { time: "O(n·2^n)", space: "O(n)", note: "2^n subsets, each up to length n; recursion depth n." },
+    solutions: [
+      {
+        language: "python",
+        label: "Backtracking",
+        code: `def subsets(nums: list[int]) -> list[list[int]]:
+    res: list[list[int]] = []
+
+    def backtrack(start: int, path: list[int]) -> None:
+        res.append(path[:])
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1, path)
+            path.pop()
+
+    backtrack(0, [])
+    return res`,
+      },
+      {
+        language: "typescript",
+        label: "Backtracking",
+        code: `function subsets(nums: number[]): number[][] {
+  const res: number[][] = [];
+  const path: number[] = [];
+  const backtrack = (start: number): void => {
+    res.push([...path]);
+    for (let i = start; i < nums.length; i++) {
+      path.push(nums[i]);
+      backtrack(i + 1);
+      path.pop();
+    }
+  };
+  backtrack(0);
+  return res;
+}`,
+      },
+    ],
+    runner: {
+      entry: "subsets",
+      comparison: "canonical",
+      jsStarter: `function subsets(nums) {
+  // Return the power set (all subsets), in any order.
+  // TODO: implement
+}`,
+      jsReference: `function subsets(nums) {
+  const res = [];
+  const path = [];
+  const backtrack = (start) => {
+    res.push([...path]);
+    for (let i = start; i < nums.length; i++) {
+      path.push(nums[i]);
+      backtrack(i + 1);
+      path.pop();
+    }
+  };
+  backtrack(0);
+  return res;
+}`,
+    },
+    tests: [
+      { name: "three", args: [[1, 2, 3]], expected: [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]] },
+      { name: "single", args: [[0]], expected: [[], [0]] },
+      { name: "two", args: [[4, 5]], expected: [[], [4], [5], [4, 5]] },
+    ],
+    hints: ["Each element: take it or skip it.", "Record the path at every node, then undo."],
+    relatedIds: [90, 77, 46],
+  },
 ];
 
 export default problems;
