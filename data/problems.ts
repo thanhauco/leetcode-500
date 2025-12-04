@@ -2384,6 +2384,496 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     hints: ["Match → diagonal + 1.", "Mismatch → best of dropping one character."],
     relatedIds: [1092, 583, 72],
   },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Greedy
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 53,
+    slug: "maximum-subarray",
+    title: "Maximum Subarray",
+    difficulty: "Medium",
+    category: "greedy",
+    patterns: ["Kadane's Algorithm"],
+    companies: ["amazon", "meta", "microsoft", "apple", "linkedin", "bloomberg"],
+    frequency: 86,
+    leetcodeUrl: "https://leetcode.com/problems/maximum-subarray/",
+    description:
+      "Given an integer array `nums`, find the contiguous subarray with the largest sum and return that sum.",
+    examples: [
+      { input: "nums = [-2,1,-3,4,-1,2,1,-5,4]", output: "6", explanation: "[4,-1,2,1] sums to 6." },
+      { input: "nums = [5,4,-1,7,8]", output: "23" },
+    ],
+    constraints: ["1 ≤ nums.length ≤ 10^5", "-10^4 ≤ nums[i] ≤ 10^4"],
+    intuition:
+      "Scan left to right keeping a running sum. The greedy insight: if the running sum ever goes negative it can only hurt what follows, so drop it and start fresh at the current element. Track the best sum seen along the way (Kadane's algorithm).",
+    approach: [
+      "Set current = nums[0] and best = nums[0].",
+      "For each later value v: current = max(v, current + v).",
+      "Update best = max(best, current).",
+      "Return best.",
+    ],
+    diagram: `graph LR
+  A["current + v"] --> M{"max"}
+  B["v (restart)"] --> M
+  M --> C["best = max(best, current)"]`,
+    complexity: { time: "O(n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Kadane",
+        code: `def max_sub_array(nums: list[int]) -> int:
+    current = best = nums[0]
+    for v in nums[1:]:
+        current = max(v, current + v)
+        best = max(best, current)
+    return best`,
+      },
+      {
+        language: "typescript",
+        label: "Kadane",
+        code: `function maxSubArray(nums: number[]): number {
+  let current = nums[0], best = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    current = Math.max(nums[i], current + nums[i]);
+    best = Math.max(best, current);
+  }
+  return best;
+}`,
+      },
+    ],
+    runner: {
+      entry: "maxSubArray",
+      comparison: "deep",
+      jsStarter: `function maxSubArray(nums) {
+  // Return the largest contiguous subarray sum.
+  // TODO: implement
+}`,
+      jsReference: `function maxSubArray(nums) {
+  let current = nums[0], best = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    current = Math.max(nums[i], current + nums[i]);
+    best = Math.max(best, current);
+  }
+  return best;
+}`,
+    },
+    tests: [
+      { name: "mixed", args: [[-2, 1, -3, 4, -1, 2, 1, -5, 4]], expected: 6 },
+      { name: "all positive", args: [[5, 4, -1, 7, 8]], expected: 23 },
+      { name: "single", args: [[1]], expected: 1 },
+      { name: "all negative", args: [[-3, -1, -2]], expected: -1 },
+    ],
+    hints: ["Drop the running sum when it turns negative.", "Track the best sum as you go."],
+    relatedIds: [121, 152, 918],
+  },
+  {
+    id: 55,
+    slug: "jump-game",
+    title: "Jump Game",
+    difficulty: "Medium",
+    category: "greedy",
+    patterns: ["Greedy Reach"],
+    companies: ["amazon", "google", "meta", "apple"],
+    frequency: 76,
+    leetcodeUrl: "https://leetcode.com/problems/jump-game/",
+    description:
+      "Each `nums[i]` is the maximum jump length from index i. Starting at index 0, return whether you can reach the last index.",
+    examples: [
+      { input: "nums = [2,3,1,1,4]", output: "true" },
+      { input: "nums = [3,2,1,0,4]", output: "false", explanation: "You always land on index 3 (value 0) and stall." },
+    ],
+    constraints: ["1 ≤ nums.length ≤ 10^4", "0 ≤ nums[i] ≤ 10^5"],
+    intuition:
+      "Track the farthest index reachable so far. Sweep left to right; if you ever stand on an index beyond that frontier, you're stuck. Otherwise extend the frontier by i + nums[i]. Reaching or passing the last index means success.",
+    approach: [
+      "Set reach = 0.",
+      "For each index i: if i > reach, return false (unreachable).",
+      "Update reach = max(reach, i + nums[i]).",
+      "If the loop completes, the end is reachable — return true.",
+    ],
+    diagram: `graph LR
+  A["i ≤ reach?"] -- no --> F["false"]
+  A -- yes --> B["reach = max(reach, i + nums[i])"]
+  B --> C["end reachable → true"]`,
+    complexity: { time: "O(n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Greedy",
+        code: `def can_jump(nums: list[int]) -> bool:
+    reach = 0
+    for i, n in enumerate(nums):
+        if i > reach:
+            return False
+        reach = max(reach, i + n)
+    return True`,
+      },
+      {
+        language: "typescript",
+        label: "Greedy",
+        code: `function canJump(nums: number[]): boolean {
+  let reach = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > reach) return false;
+    reach = Math.max(reach, i + nums[i]);
+  }
+  return true;
+}`,
+      },
+    ],
+    runner: {
+      entry: "canJump",
+      comparison: "deep",
+      jsStarter: `function canJump(nums) {
+  // Return true if you can reach the last index.
+  // TODO: implement
+}`,
+      jsReference: `function canJump(nums) {
+  let reach = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > reach) return false;
+    reach = Math.max(reach, i + nums[i]);
+  }
+  return true;
+}`,
+    },
+    tests: [
+      { name: "reachable", args: [[2, 3, 1, 1, 4]], expected: true },
+      { name: "stuck", args: [[3, 2, 1, 0, 4]], expected: false },
+      { name: "single", args: [[0]], expected: true },
+      { name: "big first jump", args: [[5, 0, 0, 0, 0]], expected: true },
+    ],
+    hints: ["Track the farthest reachable index.", "Fail the moment an index exceeds it."],
+    relatedIds: [45, 1306, 1340],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Intervals
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 56,
+    slug: "merge-intervals",
+    title: "Merge Intervals",
+    difficulty: "Medium",
+    category: "intervals",
+    patterns: ["Sort", "Sweep"],
+    companies: ["amazon", "google", "meta", "microsoft", "bloomberg", "salesforce"],
+    frequency: 88,
+    leetcodeUrl: "https://leetcode.com/problems/merge-intervals/",
+    description:
+      "Given an array of intervals `[start, end]`, merge all overlapping intervals and return the non-overlapping result, sorted by start.",
+    examples: [
+      { input: "intervals = [[1,3],[2,6],[8,10],[15,18]]", output: "[[1,6],[8,10],[15,18]]", explanation: "[1,3] and [2,6] overlap into [1,6]." },
+      { input: "intervals = [[1,4],[4,5]]", output: "[[1,5]]" },
+    ],
+    constraints: ["1 ≤ intervals.length ≤ 10^4", "intervals[i] = [start, end] with start ≤ end"],
+    intuition:
+      "Sort by start so any overlaps become adjacent. Walk the sorted list keeping the last merged interval; if the next one starts at or before that interval's end, extend the end, otherwise it begins a new block. One pass after sorting does it.",
+    approach: [
+      "Sort intervals by start ascending.",
+      "Initialize the result with the first interval.",
+      "For each next interval: if its start ≤ last.end, set last.end = max(last.end, next.end); else append it.",
+      "Return the result.",
+    ],
+    diagram: `graph LR
+  S["sort by start"] --> O{"next.start ≤ last.end?"}
+  O -- yes --> M["extend last.end"]
+  O -- no --> A["append new interval"]`,
+    complexity: { time: "O(n log n)", space: "O(n)", note: "Dominated by the sort." },
+    solutions: [
+      {
+        language: "python",
+        label: "Sort + Merge",
+        code: `def merge(intervals: list[list[int]]) -> list[list[int]]:
+    intervals.sort(key=lambda x: x[0])
+    merged: list[list[int]] = []
+    for start, end in intervals:
+        if merged and start <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], end)
+        else:
+            merged.append([start, end])
+    return merged`,
+      },
+      {
+        language: "typescript",
+        label: "Sort + Merge",
+        code: `function merge(intervals: number[][]): number[][] {
+  intervals.sort((a, b) => a[0] - b[0]);
+  const merged: number[][] = [];
+  for (const [start, end] of intervals) {
+    const last = merged[merged.length - 1];
+    if (last && start <= last[1]) last[1] = Math.max(last[1], end);
+    else merged.push([start, end]);
+  }
+  return merged;
+}`,
+      },
+    ],
+    runner: {
+      entry: "merge",
+      comparison: "deep",
+      jsStarter: `function merge(intervals) {
+  // Merge overlapping intervals; return sorted by start.
+  // TODO: implement
+}`,
+      jsReference: `function merge(input) {
+  const intervals = input.map((iv) => iv.slice()).sort((a, b) => a[0] - b[0]);
+  const merged = [];
+  for (const [start, end] of intervals) {
+    const last = merged[merged.length - 1];
+    if (last && start <= last[1]) last[1] = Math.max(last[1], end);
+    else merged.push([start, end]);
+  }
+  return merged;
+}`,
+    },
+    tests: [
+      { name: "classic", args: [[[1, 3], [2, 6], [8, 10], [15, 18]]], expected: [[1, 6], [8, 10], [15, 18]] },
+      { name: "touching", args: [[[1, 4], [4, 5]]], expected: [[1, 5]] },
+      { name: "unsorted", args: [[[15, 18], [1, 3], [8, 10], [2, 6]]], expected: [[1, 6], [8, 10], [15, 18]] },
+      { name: "engulfed", args: [[[1, 10], [2, 3], [4, 5]]], expected: [[1, 10]] },
+    ],
+    hints: ["Sort by start first.", "Overlap when next.start ≤ last.end."],
+    relatedIds: [57, 435, 252],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Math & Geometry
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 48,
+    slug: "rotate-image",
+    title: "Rotate Image",
+    difficulty: "Medium",
+    category: "math-geometry",
+    patterns: ["Matrix", "Transpose + Reverse"],
+    companies: ["amazon", "meta", "google", "microsoft", "apple"],
+    frequency: 74,
+    leetcodeUrl: "https://leetcode.com/problems/rotate-image/",
+    description:
+      "Rotate an `n × n` matrix 90° clockwise in place. The playground returns the rotated matrix so it can be graded.",
+    examples: [
+      { input: "matrix = [[1,2,3],[4,5,6],[7,8,9]]", output: "[[7,4,1],[8,5,2],[9,6,3]]" },
+      { input: "matrix = [[1,2],[3,4]]", output: "[[3,1],[4,2]]" },
+    ],
+    constraints: ["n == matrix.length == matrix[i].length", "1 ≤ n ≤ 20", "-1000 ≤ matrix[i][j] ≤ 1000"],
+    intuition:
+      "A 90° clockwise rotation equals two simple reflections: first transpose the matrix (swap across the main diagonal), then reverse each row. Both steps are in place and avoid any extra matrix allocation.",
+    approach: [
+      "Transpose: for i < j, swap matrix[i][j] with matrix[j][i].",
+      "Reverse each row in place.",
+      "The matrix is now rotated 90° clockwise.",
+    ],
+    diagram: `graph LR
+  A["original"] --> T["transpose (swap i,j)"] --> R["reverse each row"] --> O["rotated 90° CW"]`,
+    complexity: { time: "O(n²)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Transpose + Reverse",
+        code: `def rotate(matrix: list[list[int]]) -> None:
+    n = len(matrix)
+    for i in range(n):
+        for j in range(i + 1, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    for row in matrix:
+        row.reverse()`,
+      },
+      {
+        language: "typescript",
+        label: "Transpose + Reverse",
+        code: `function rotate(matrix: number[][]): void {
+  const n = matrix.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+    }
+  }
+  for (const row of matrix) row.reverse();
+}`,
+      },
+    ],
+    runner: {
+      entry: "rotate",
+      comparison: "deep",
+      jsStarter: `function rotate(matrix) {
+  // Rotate 90 degrees clockwise. Return the rotated matrix for grading.
+  // TODO: implement
+}`,
+      jsReference: `function rotate(input) {
+  const matrix = input.map((row) => row.slice());
+  const n = matrix.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+    }
+  }
+  for (const row of matrix) row.reverse();
+  return matrix;
+}`,
+    },
+    tests: [
+      { name: "3x3", args: [[[1, 2, 3], [4, 5, 6], [7, 8, 9]]], expected: [[7, 4, 1], [8, 5, 2], [9, 6, 3]] },
+      { name: "2x2", args: [[[1, 2], [3, 4]]], expected: [[3, 1], [4, 2]] },
+      { name: "1x1", args: [[[1]]], expected: [[1]] },
+    ],
+    hints: ["Transpose, then reverse rows.", "Both steps are in place."],
+    relatedIds: [54, 59, 73],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Bit Manipulation
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 136,
+    slug: "single-number",
+    title: "Single Number",
+    difficulty: "Easy",
+    category: "bit-manipulation",
+    patterns: ["XOR"],
+    companies: ["amazon", "google", "apple", "microsoft"],
+    frequency: 80,
+    leetcodeUrl: "https://leetcode.com/problems/single-number/",
+    description:
+      "Every element in `nums` appears twice except for one. Find that single element in O(n) time and O(1) extra space.",
+    examples: [
+      { input: "nums = [2,2,1]", output: "1" },
+      { input: "nums = [4,1,2,1,2]", output: "4" },
+    ],
+    constraints: ["1 ≤ nums.length ≤ 3·10^4", "Each element appears twice except one which appears once."],
+    intuition:
+      "XOR is the perfect tool: x ^ x = 0 and x ^ 0 = x. Fold the whole array with XOR — every duplicated pair cancels to zero, leaving exactly the lone element. No hash map or extra space needed.",
+    approach: [
+      "Initialize result = 0.",
+      "XOR every element into result.",
+      "Pairs cancel; result holds the unique value.",
+      "Return result.",
+    ],
+    diagram: `graph LR
+  A["2 ^ 2 = 0"] --> B["0 ^ 1 = 1"]
+  B --> C["pairs cancel → unique remains"]`,
+    complexity: { time: "O(n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "XOR fold",
+        code: `from functools import reduce
+from operator import xor
+
+def single_number(nums: list[int]) -> int:
+    return reduce(xor, nums, 0)`,
+      },
+      {
+        language: "typescript",
+        label: "XOR fold",
+        code: `function singleNumber(nums: number[]): number {
+  return nums.reduce((acc, x) => acc ^ x, 0);
+}`,
+      },
+    ],
+    runner: {
+      entry: "singleNumber",
+      comparison: "deep",
+      jsStarter: `function singleNumber(nums) {
+  // Return the element that appears only once.
+  // TODO: implement
+}`,
+      jsReference: `function singleNumber(nums) {
+  return nums.reduce((acc, x) => acc ^ x, 0);
+}`,
+    },
+    tests: [
+      { name: "first", args: [[2, 2, 1]], expected: 1 },
+      { name: "middle", args: [[4, 1, 2, 1, 2]], expected: 4 },
+      { name: "single", args: [[7]], expected: 7 },
+      { name: "negatives", args: [[-1, -1, -3]], expected: -3 },
+    ],
+    hints: ["x ^ x = 0.", "XOR the whole array together."],
+    relatedIds: [137, 260, 268],
+  },
+  {
+    id: 191,
+    slug: "number-of-1-bits",
+    title: "Number of 1 Bits",
+    difficulty: "Easy",
+    category: "bit-manipulation",
+    patterns: ["Bit Counting", "Brian Kernighan"],
+    companies: ["amazon", "apple", "microsoft"],
+    frequency: 68,
+    leetcodeUrl: "https://leetcode.com/problems/number-of-1-bits/",
+    description:
+      "Return the number of set bits (1s) in the binary representation of an unsigned integer `n` (its Hamming weight).",
+    examples: [
+      { input: "n = 11  (1011)", output: "3" },
+      { input: "n = 128 (10000000)", output: "1" },
+    ],
+    constraints: ["0 ≤ n ≤ 2^31 - 1"],
+    intuition:
+      "Brian Kernighan's trick clears the lowest set bit with n & (n - 1). Each iteration removes exactly one 1, so the loop runs once per set bit — counting them while skipping every zero in between.",
+    approach: [
+      "Initialize count = 0.",
+      "While n is non-zero: do n = n & (n - 1) to drop the lowest set bit and increment count.",
+      "Return count.",
+    ],
+    diagram: `graph LR
+  A["n & (n-1)"] --> B["drops lowest set bit"]
+  B --> C["count++"]
+  C --> D{"n == 0?"}
+  D -- no --> A
+  D -- yes --> E["return count"]`,
+    complexity: { time: "O(set bits)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Kernighan",
+        code: `def hamming_weight(n: int) -> int:
+    count = 0
+    while n:
+        n &= n - 1
+        count += 1
+    return count`,
+      },
+      {
+        language: "typescript",
+        label: "Unsigned shift",
+        code: `function hammingWeight(n: number): number {
+  let count = 0;
+  let x = n >>> 0; // treat as unsigned 32-bit
+  while (x) {
+    count += x & 1;
+    x >>>= 1;
+  }
+  return count;
+}`,
+      },
+    ],
+    runner: {
+      entry: "hammingWeight",
+      comparison: "deep",
+      jsStarter: `function hammingWeight(n) {
+  // Count the set bits of n (unsigned 32-bit).
+  // TODO: implement
+}`,
+      jsReference: `function hammingWeight(n) {
+  let count = 0;
+  let x = n >>> 0;
+  while (x) {
+    count += x & 1;
+    x >>>= 1;
+  }
+  return count;
+}`,
+    },
+    tests: [
+      { name: "eleven", args: [11], expected: 3 },
+      { name: "power of two", args: [128], expected: 1 },
+      { name: "zero", args: [0], expected: 0 },
+      { name: "many bits", args: [2147483645], expected: 30 },
+    ],
+    hints: ["n & (n-1) clears the lowest set bit.", "Loop until n becomes 0."],
+    relatedIds: [338, 190, 461],
+  },
 ];
 
 export default problems;
