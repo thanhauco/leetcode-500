@@ -1733,6 +1733,657 @@ def find_kth_largest(nums: list[int], k: int) -> int:
     hints: ["Each element: take it or skip it.", "Record the path at every node, then undo."],
     relatedIds: [90, 77, 46],
   },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Graphs
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 200,
+    slug: "number-of-islands",
+    title: "Number of Islands",
+    difficulty: "Medium",
+    category: "graphs",
+    patterns: ["DFS", "Flood Fill", "Grid"],
+    companies: ["amazon", "meta", "google", "microsoft", "bloomberg", "uber"],
+    frequency: 87,
+    leetcodeUrl: "https://leetcode.com/problems/number-of-islands/",
+    description:
+      'Given an `m × n` grid of "1" (land) and "0" (water), return the number of islands. An island is land connected 4-directionally and surrounded by water.',
+    examples: [
+      {
+        input: 'grid = [["1","1","0"],["1","0","0"],["0","0","1"]]',
+        output: "2",
+      },
+    ],
+    constraints: ["1 ≤ m, n ≤ 300", 'grid[i][j] is "0" or "1".'],
+    intuition:
+      "Each island is a connected component. Scan the grid; the first land cell of an unvisited island triggers a flood fill (DFS/BFS) that sinks the whole island so it's counted once. The number of flood fills you start equals the island count.",
+    approach: [
+      "Initialize count = 0.",
+      "For each cell: if it is land ('1'), increment count and flood-fill from it.",
+      "Flood fill marks the cell as visited ('0') and recurses into its 4 neighbors that are land.",
+      "Return count.",
+    ],
+    diagram: `graph TD
+  S["scan grid"] --> F{"cell == '1'?"}
+  F -- yes --> C["count++ and DFS sink island"]
+  F -- no --> N["skip"]
+  C --> S
+  N --> S`,
+    complexity: { time: "O(m·n)", space: "O(m·n)", note: "Recursion stack in the worst case." },
+    solutions: [
+      {
+        language: "python",
+        label: "DFS Flood Fill",
+        code: `def num_islands(grid: list[list[str]]) -> int:
+    if not grid:
+        return 0
+    rows, cols = len(grid), len(grid[0])
+
+    def sink(r: int, c: int) -> None:
+        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] != "1":
+            return
+        grid[r][c] = "0"
+        sink(r + 1, c); sink(r - 1, c)
+        sink(r, c + 1); sink(r, c - 1)
+
+    count = 0
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "1":
+                count += 1
+                sink(r, c)
+    return count`,
+      },
+      {
+        language: "typescript",
+        label: "DFS Flood Fill",
+        code: `function numIslands(grid: string[][]): number {
+  const rows = grid.length, cols = grid[0]?.length ?? 0;
+  const sink = (r: number, c: number): void => {
+    if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] !== "1") return;
+    grid[r][c] = "0";
+    sink(r + 1, c); sink(r - 1, c);
+    sink(r, c + 1); sink(r, c - 1);
+  };
+  let count = 0;
+  for (let r = 0; r < rows; r++)
+    for (let c = 0; c < cols; c++)
+      if (grid[r][c] === "1") { count++; sink(r, c); }
+  return count;
+}`,
+      },
+    ],
+    runner: {
+      entry: "numIslands",
+      comparison: "deep",
+      jsStarter: `function numIslands(grid) {
+  // grid is a 2-D array of "1"/"0" strings. Return the island count.
+  // TODO: implement
+}`,
+      jsReference: `function numIslands(input) {
+  // Clone so repeated runs don't see a sunk grid.
+  const grid = input.map((row) => row.slice());
+  const rows = grid.length, cols = grid[0]?.length ?? 0;
+  const sink = (r, c) => {
+    if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] !== "1") return;
+    grid[r][c] = "0";
+    sink(r + 1, c); sink(r - 1, c); sink(r, c + 1); sink(r, c - 1);
+  };
+  let count = 0;
+  for (let r = 0; r < rows; r++)
+    for (let c = 0; c < cols; c++)
+      if (grid[r][c] === "1") { count++; sink(r, c); }
+  return count;
+}`,
+    },
+    tests: [
+      {
+        name: "one island",
+        args: [[["1", "1", "1", "1", "0"], ["1", "1", "0", "1", "0"], ["1", "1", "0", "0", "0"], ["0", "0", "0", "0", "0"]]],
+        expected: 1,
+      },
+      {
+        name: "three islands",
+        args: [[["1", "1", "0", "0", "0"], ["1", "1", "0", "0", "0"], ["0", "0", "1", "0", "0"], ["0", "0", "0", "1", "1"]]],
+        expected: 3,
+      },
+      { name: "all water", args: [[["0", "0"], ["0", "0"]]], expected: 0 },
+    ],
+    hints: ["Count connected components.", "Sink each island so it's only counted once."],
+    relatedIds: [695, 130, 417],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Advanced Graphs
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 743,
+    slug: "network-delay-time",
+    title: "Network Delay Time",
+    difficulty: "Medium",
+    category: "advanced-graphs",
+    patterns: ["Dijkstra", "Shortest Path"],
+    companies: ["amazon", "google", "uber", "snowflake"],
+    frequency: 66,
+    leetcodeUrl: "https://leetcode.com/problems/network-delay-time/",
+    description:
+      "A signal starts at node `k` in a directed weighted graph given as `times[i] = [u, v, w]` (travel time w from u to v). Return the time for all `n` nodes to receive it, or -1 if some node is unreachable.",
+    examples: [
+      { input: "times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2", output: "2" },
+      { input: "times = [[1,2,1]], n = 2, k = 1", output: "1" },
+    ],
+    constraints: ["1 ≤ k ≤ n ≤ 100", "1 ≤ times.length ≤ 6000", "0 ≤ w ≤ 100"],
+    intuition:
+      "The time for everyone to receive the signal is the longest shortest-path from the source. Run Dijkstra from k to get each node's earliest arrival; the answer is the maximum of those, unless any node stays at infinity (unreachable).",
+    approach: [
+      "Build an adjacency list from times.",
+      "Dijkstra from k: repeatedly settle the closest unsettled node and relax its edges.",
+      "Take the maximum settled distance over all nodes.",
+      "Return it, or -1 if any node is still unreachable.",
+    ],
+    diagram: `graph LR
+  K["k = 2"] -->|1| A["1"]
+  K -->|1| B["3"]
+  B -->|1| C["4"]
+  note["answer = max shortest-path = 2"]`,
+    complexity: { time: "O(E log V)", space: "O(V + E)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Dijkstra",
+        code: `import heapq
+
+def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
+    adj: dict[int, list[tuple[int, int]]] = {i: [] for i in range(1, n + 1)}
+    for u, v, w in times:
+        adj[u].append((v, w))
+    dist: dict[int, int] = {}
+    pq = [(0, k)]
+    while pq:
+        d, u = heapq.heappop(pq)
+        if u in dist:
+            continue
+        dist[u] = d
+        for v, w in adj[u]:
+            if v not in dist:
+                heapq.heappush(pq, (d + w, v))
+    return max(dist.values()) if len(dist) == n else -1`,
+      },
+      {
+        language: "typescript",
+        label: "Dijkstra",
+        code: `function networkDelayTime(times: number[][], n: number, k: number): number {
+  const adj: number[][][] = Array.from({ length: n + 1 }, () => []);
+  for (const [u, v, w] of times) adj[u].push([v, w]);
+  const dist = new Array<number>(n + 1).fill(Infinity);
+  dist[k] = 0;
+  const pq: [number, number][] = [[0, k]];
+  while (pq.length) {
+    let mi = 0;
+    for (let i = 1; i < pq.length; i++) if (pq[i][0] < pq[mi][0]) mi = i;
+    const [d, u] = pq.splice(mi, 1)[0];
+    if (d > dist[u]) continue;
+    for (const [v, w] of adj[u])
+      if (d + w < dist[v]) { dist[v] = d + w; pq.push([dist[v], v]); }
+  }
+  let ans = 0;
+  for (let i = 1; i <= n; i++) ans = Math.max(ans, dist[i]);
+  return ans === Infinity ? -1 : ans;
+}`,
+      },
+    ],
+    runner: {
+      entry: "networkDelayTime",
+      comparison: "deep",
+      jsStarter: `function networkDelayTime(times, n, k) {
+  // Return the time for all nodes to receive the signal, or -1.
+  // TODO: implement
+}`,
+      jsReference: `function networkDelayTime(times, n, k) {
+  const adj = Array.from({ length: n + 1 }, () => []);
+  for (const [u, v, w] of times) adj[u].push([v, w]);
+  const dist = new Array(n + 1).fill(Infinity);
+  dist[k] = 0;
+  const pq = [[0, k]];
+  while (pq.length) {
+    let mi = 0;
+    for (let i = 1; i < pq.length; i++) if (pq[i][0] < pq[mi][0]) mi = i;
+    const [d, u] = pq.splice(mi, 1)[0];
+    if (d > dist[u]) continue;
+    for (const [v, w] of adj[u])
+      if (d + w < dist[v]) { dist[v] = d + w; pq.push([dist[v], v]); }
+  }
+  let ans = 0;
+  for (let i = 1; i <= n; i++) ans = Math.max(ans, dist[i]);
+  return ans === Infinity ? -1 : ans;
+}`,
+    },
+    tests: [
+      { name: "reachable", args: [[[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2], expected: 2 },
+      { name: "single edge", args: [[[1, 2, 1]], 2, 1], expected: 1 },
+      { name: "unreachable", args: [[[1, 2, 1]], 2, 2], expected: -1 },
+    ],
+    hints: ["Shortest paths from the source.", "Answer is the max shortest-path; -1 if unreachable."],
+    relatedIds: [787, 1514, 1631],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // 1-D Dynamic Programming
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 70,
+    slug: "climbing-stairs",
+    title: "Climbing Stairs",
+    difficulty: "Easy",
+    category: "dp-1d",
+    patterns: ["Fibonacci DP"],
+    companies: ["amazon", "google", "apple", "adobe"],
+    frequency: 82,
+    leetcodeUrl: "https://leetcode.com/problems/climbing-stairs/",
+    description:
+      "You climb a staircase of `n` steps, taking 1 or 2 steps at a time. Return the number of distinct ways to reach the top.",
+    examples: [
+      { input: "n = 2", output: "2", explanation: "1+1 or 2." },
+      { input: "n = 3", output: "3", explanation: "1+1+1, 1+2, or 2+1." },
+    ],
+    constraints: ["1 ≤ n ≤ 45"],
+    intuition:
+      "To stand on step n you arrived either from step n-1 (a 1-step) or step n-2 (a 2-step), so ways(n) = ways(n-1) + ways(n-2) — the Fibonacci sequence. Only the last two values matter, so two rolling variables suffice.",
+    approach: [
+      "Base: 1 way to stand on step 0, 1 way on step 1.",
+      "Iterate i from 2 to n, computing curr = prev1 + prev2.",
+      "Roll the two previous values forward.",
+      "Return the final value.",
+    ],
+    diagram: `graph LR
+  A["ways(n-2)"] --> C["ways(n)"]
+  B["ways(n-1)"] --> C
+  C --> D["= sum of the two below"]`,
+    complexity: { time: "O(n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Rolling DP",
+        code: `def climb_stairs(n: int) -> int:
+    prev2, prev1 = 1, 1
+    for _ in range(2, n + 1):
+        prev2, prev1 = prev1, prev1 + prev2
+    return prev1`,
+      },
+      {
+        language: "typescript",
+        label: "Rolling DP",
+        code: `function climbStairs(n: number): number {
+  let prev2 = 1, prev1 = 1;
+  for (let i = 2; i <= n; i++) {
+    [prev2, prev1] = [prev1, prev1 + prev2];
+  }
+  return prev1;
+}`,
+      },
+    ],
+    runner: {
+      entry: "climbStairs",
+      comparison: "deep",
+      jsStarter: `function climbStairs(n) {
+  // Count distinct ways to climb n steps (1 or 2 at a time).
+  // TODO: implement
+}`,
+      jsReference: `function climbStairs(n) {
+  let prev2 = 1, prev1 = 1;
+  for (let i = 2; i <= n; i++) {
+    [prev2, prev1] = [prev1, prev1 + prev2];
+  }
+  return prev1;
+}`,
+    },
+    tests: [
+      { name: "two", args: [2], expected: 2 },
+      { name: "three", args: [3], expected: 3 },
+      { name: "five", args: [5], expected: 8 },
+      { name: "one", args: [1], expected: 1 },
+    ],
+    hints: ["How can you reach step n?", "ways(n) = ways(n-1) + ways(n-2)."],
+    relatedIds: [746, 198, 509],
+  },
+  {
+    id: 198,
+    slug: "house-robber",
+    title: "House Robber",
+    difficulty: "Medium",
+    category: "dp-1d",
+    patterns: ["Linear DP", "Take/Skip"],
+    companies: ["amazon", "google", "microsoft", "linkedin"],
+    frequency: 79,
+    leetcodeUrl: "https://leetcode.com/problems/house-robber/",
+    description:
+      "Houses in a row hold `nums[i]` money. You cannot rob two adjacent houses (alarms link them). Return the maximum amount you can rob.",
+    examples: [
+      { input: "nums = [1,2,3,1]", output: "4", explanation: "Rob houses 1 and 3 (1 + 3)." },
+      { input: "nums = [2,7,9,3,1]", output: "12", explanation: "Rob houses 1, 3, 5 (2 + 9 + 1)." },
+    ],
+    constraints: ["1 ≤ nums.length ≤ 100", "0 ≤ nums[i] ≤ 400"],
+    intuition:
+      "At each house you either skip it (keep the best up to the previous house) or rob it (its value plus the best from two houses back). best(i) = max(best(i-1), nums[i] + best(i-2)). Two rolling totals capture the whole recurrence.",
+    approach: [
+      "Track rob = best including the current house, skip = best excluding it (both start at 0).",
+      "For each value v: newRob = skip + v, newSkip = max(rob, skip).",
+      "Advance rob, skip.",
+      "Return max(rob, skip).",
+    ],
+    diagram: `graph LR
+  P2["best(i-2)"] -->|+ nums[i]| R["rob i"]
+  P1["best(i-1)"] --> S["skip i"]
+  R --> M["best(i) = max(rob, skip)"]
+  S --> M`,
+    complexity: { time: "O(n)", space: "O(1)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Rolling DP",
+        code: `def rob(nums: list[int]) -> int:
+    rob_cur = skip = 0
+    for v in nums:
+        rob_cur, skip = skip + v, max(rob_cur, skip)
+    return max(rob_cur, skip)`,
+      },
+      {
+        language: "typescript",
+        label: "Rolling DP",
+        code: `function rob(nums: number[]): number {
+  let robCur = 0, skip = 0;
+  for (const v of nums) {
+    [robCur, skip] = [skip + v, Math.max(robCur, skip)];
+  }
+  return Math.max(robCur, skip);
+}`,
+      },
+    ],
+    runner: {
+      entry: "rob",
+      comparison: "deep",
+      jsStarter: `function rob(nums) {
+  // Max money without robbing two adjacent houses.
+  // TODO: implement
+}`,
+      jsReference: `function rob(nums) {
+  let robCur = 0, skip = 0;
+  for (const v of nums) {
+    [robCur, skip] = [skip + v, Math.max(robCur, skip)];
+  }
+  return Math.max(robCur, skip);
+}`,
+    },
+    tests: [
+      { name: "small", args: [[1, 2, 3, 1]], expected: 4 },
+      { name: "larger", args: [[2, 7, 9, 3, 1]], expected: 12 },
+      { name: "single", args: [[5]], expected: 5 },
+      { name: "adjacent peaks", args: [[2, 1, 1, 2]], expected: 4 },
+    ],
+    hints: ["Rob or skip each house.", "best(i) = max(best(i-1), nums[i] + best(i-2))."],
+    relatedIds: [213, 337, 740],
+  },
+  {
+    id: 322,
+    slug: "coin-change",
+    title: "Coin Change",
+    difficulty: "Medium",
+    category: "dp-1d",
+    patterns: ["Unbounded Knapsack", "Bottom-up DP"],
+    companies: ["amazon", "google", "meta", "uber", "bloomberg"],
+    frequency: 84,
+    leetcodeUrl: "https://leetcode.com/problems/coin-change/",
+    description:
+      "Given coin denominations `coins` and a target `amount`, return the fewest coins that sum to the amount, or -1 if it cannot be made. You have unlimited coins of each type.",
+    examples: [
+      { input: "coins = [1,2,5], amount = 11", output: "3", explanation: "11 = 5 + 5 + 1." },
+      { input: "coins = [2], amount = 3", output: "-1" },
+    ],
+    constraints: ["1 ≤ coins.length ≤ 12", "1 ≤ coins[i] ≤ 2^31 - 1", "0 ≤ amount ≤ 10^4"],
+    intuition:
+      "Build the answer for every sub-amount from 0 up to the target. The minimum coins for amount a is 1 + the smallest dp[a - coin] over all coins that fit. dp[0] = 0; anything still unreachable stays 'infinity' and becomes -1.",
+    approach: [
+      "Create dp[0..amount] filled with amount+1 (a sentinel ∞), set dp[0] = 0.",
+      "For each sub-amount a, try every coin ≤ a: dp[a] = min(dp[a], dp[a - coin] + 1).",
+      "If dp[amount] is still the sentinel, return -1, else dp[amount].",
+    ],
+    diagram: `graph LR
+  Z["dp[0]=0"] --> A["dp[a] = min over coins"]
+  A --> B["dp[a-coin] + 1"]
+  B --> C["dp[amount] or -1"]`,
+    complexity: { time: "O(amount · coins)", space: "O(amount)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Bottom-up DP",
+        code: `def coin_change(coins: list[int], amount: int) -> int:
+    dp = [amount + 1] * (amount + 1)
+    dp[0] = 0
+    for a in range(1, amount + 1):
+        for coin in coins:
+            if coin <= a:
+                dp[a] = min(dp[a], dp[a - coin] + 1)
+    return dp[amount] if dp[amount] <= amount else -1`,
+      },
+      {
+        language: "typescript",
+        label: "Bottom-up DP",
+        code: `function coinChange(coins: number[], amount: number): number {
+  const dp = new Array<number>(amount + 1).fill(amount + 1);
+  dp[0] = 0;
+  for (let a = 1; a <= amount; a++) {
+    for (const coin of coins) {
+      if (coin <= a) dp[a] = Math.min(dp[a], dp[a - coin] + 1);
+    }
+  }
+  return dp[amount] > amount ? -1 : dp[amount];
+}`,
+      },
+    ],
+    runner: {
+      entry: "coinChange",
+      comparison: "deep",
+      jsStarter: `function coinChange(coins, amount) {
+  // Fewest coins to make amount, or -1.
+  // TODO: implement
+}`,
+      jsReference: `function coinChange(coins, amount) {
+  const dp = new Array(amount + 1).fill(amount + 1);
+  dp[0] = 0;
+  for (let a = 1; a <= amount; a++) {
+    for (const coin of coins) {
+      if (coin <= a) dp[a] = Math.min(dp[a], dp[a - coin] + 1);
+    }
+  }
+  return dp[amount] > amount ? -1 : dp[amount];
+}`,
+    },
+    tests: [
+      { name: "makeable", args: [[1, 2, 5], 11], expected: 3 },
+      { name: "impossible", args: [[2], 3], expected: -1 },
+      { name: "zero amount", args: [[1], 0], expected: 0 },
+      { name: "exact", args: [[2, 5, 10, 1], 27], expected: 4 },
+    ],
+    hints: ["Solve for every amount up to the target.", "dp[a] = min(dp[a-coin]) + 1."],
+    relatedIds: [518, 983, 279],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // 2-D Dynamic Programming
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 62,
+    slug: "unique-paths",
+    title: "Unique Paths",
+    difficulty: "Medium",
+    category: "dp-2d",
+    patterns: ["Grid DP", "Combinatorics"],
+    companies: ["amazon", "google", "bloomberg", "apple"],
+    frequency: 71,
+    leetcodeUrl: "https://leetcode.com/problems/unique-paths/",
+    description:
+      "A robot at the top-left of an `m × n` grid can only move right or down. Return the number of distinct paths to the bottom-right corner.",
+    examples: [
+      { input: "m = 3, n = 7", output: "28" },
+      { input: "m = 3, n = 2", output: "3" },
+    ],
+    constraints: ["1 ≤ m, n ≤ 100", "The answer fits in a 32-bit integer."],
+    intuition:
+      "You reach a cell only from the cell above or the cell to its left, so paths(r,c) = paths(r-1,c) + paths(r,c-1). The top row and left column each have exactly one path. A single rolling row collapses the table to O(n) space.",
+    approach: [
+      "Initialize a row of n ones (the top row).",
+      "For each subsequent row, update row[c] += row[c-1] left to right.",
+      "row[c] now holds paths to that cell.",
+      "Return the last cell after processing all rows.",
+    ],
+    diagram: `graph TD
+  A["paths(r-1,c)"] --> C["paths(r,c)"]
+  B["paths(r,c-1)"] --> C
+  C --> D["sum from top + left"]`,
+    complexity: { time: "O(m·n)", space: "O(n)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Rolling Row DP",
+        code: `def unique_paths(m: int, n: int) -> int:
+    row = [1] * n
+    for _ in range(1, m):
+        for c in range(1, n):
+            row[c] += row[c - 1]
+    return row[-1]`,
+      },
+      {
+        language: "typescript",
+        label: "Rolling Row DP",
+        code: `function uniquePaths(m: number, n: number): number {
+  const row = new Array<number>(n).fill(1);
+  for (let r = 1; r < m; r++) {
+    for (let c = 1; c < n; c++) {
+      row[c] += row[c - 1];
+    }
+  }
+  return row[n - 1];
+}`,
+      },
+    ],
+    runner: {
+      entry: "uniquePaths",
+      comparison: "deep",
+      jsStarter: `function uniquePaths(m, n) {
+  // Count right/down-only paths across an m x n grid.
+  // TODO: implement
+}`,
+      jsReference: `function uniquePaths(m, n) {
+  const row = new Array(n).fill(1);
+  for (let r = 1; r < m; r++) {
+    for (let c = 1; c < n; c++) {
+      row[c] += row[c - 1];
+    }
+  }
+  return row[n - 1];
+}`,
+    },
+    tests: [
+      { name: "3x7", args: [3, 7], expected: 28 },
+      { name: "3x2", args: [3, 2], expected: 3 },
+      { name: "1x1", args: [1, 1], expected: 1 },
+      { name: "square", args: [4, 4], expected: 20 },
+    ],
+    hints: ["Each cell sums the cell above and to the left.", "One row of state is enough."],
+    relatedIds: [63, 64, 980],
+  },
+  {
+    id: 1143,
+    slug: "longest-common-subsequence",
+    title: "Longest Common Subsequence",
+    difficulty: "Medium",
+    category: "dp-2d",
+    patterns: ["Two-sequence DP"],
+    companies: ["amazon", "google", "microsoft", "adobe"],
+    frequency: 75,
+    leetcodeUrl: "https://leetcode.com/problems/longest-common-subsequence/",
+    description:
+      "Given two strings `text1` and `text2`, return the length of their longest common subsequence (characters in order but not necessarily contiguous), or 0 if there is none.",
+    examples: [
+      { input: 'text1 = "abcde", text2 = "ace"', output: "3", explanation: '"ace".' },
+      { input: 'text1 = "abc", text2 = "def"', output: "0" },
+    ],
+    constraints: ["1 ≤ text1.length, text2.length ≤ 1000", "Strings are lowercase English letters."],
+    intuition:
+      "Compare the two strings character by character in a table. If the current characters match, the LCS grows by one from the diagonal; if not, carry over the better of dropping one character from either string. dp[i][j] is the LCS of the first i and first j characters.",
+    approach: [
+      "Build a (m+1) × (n+1) table of zeros.",
+      "For each i, j: if text1[i-1] == text2[j-1], dp[i][j] = dp[i-1][j-1] + 1.",
+      "Otherwise dp[i][j] = max(dp[i-1][j], dp[i][j-1]).",
+      "Return dp[m][n].",
+    ],
+    diagram: `graph TD
+  M{"chars match?"}
+  M -- yes --> D["1 + dp[i-1][j-1] (diagonal)"]
+  M -- no --> X["max(dp[i-1][j], dp[i][j-1])"]`,
+    complexity: { time: "O(m·n)", space: "O(m·n)", note: "Reducible to O(min(m,n)) with two rows." },
+    solutions: [
+      {
+        language: "python",
+        label: "Tabulation",
+        code: `def longest_common_subsequence(text1: str, text2: str) -> int:
+    m, n = len(text1), len(text2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if text1[i - 1] == text2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+    return dp[m][n]`,
+      },
+      {
+        language: "typescript",
+        label: "Tabulation",
+        code: `function longestCommonSubsequence(text1: string, text2: string): number {
+  const m = text1.length, n = text2.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array<number>(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = text1[i - 1] === text2[j - 1]
+        ? dp[i - 1][j - 1] + 1
+        : Math.max(dp[i - 1][j], dp[i][j - 1]);
+    }
+  }
+  return dp[m][n];
+}`,
+      },
+    ],
+    runner: {
+      entry: "longestCommonSubsequence",
+      comparison: "deep",
+      jsStarter: `function longestCommonSubsequence(text1, text2) {
+  // Return the length of the longest common subsequence.
+  // TODO: implement
+}`,
+      jsReference: `function longestCommonSubsequence(text1, text2) {
+  const m = text1.length, n = text2.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = text1[i - 1] === text2[j - 1]
+        ? dp[i - 1][j - 1] + 1
+        : Math.max(dp[i - 1][j], dp[i][j - 1]);
+    }
+  }
+  return dp[m][n];
+}`,
+    },
+    tests: [
+      { name: "ace", args: ["abcde", "ace"], expected: 3 },
+      { name: "identical", args: ["abc", "abc"], expected: 3 },
+      { name: "disjoint", args: ["abc", "def"], expected: 0 },
+      { name: "interleaved", args: ["bsbininm", "jmjkbkjkv"], expected: 1 },
+    ],
+    hints: ["Match → diagonal + 1.", "Mismatch → best of dropping one character."],
+    relatedIds: [1092, 583, 72],
+  },
 ];
 
 export default problems;
