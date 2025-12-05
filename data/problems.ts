@@ -1,4 +1,4 @@
-import type { Problem } from "./types";
+import type { Problem } from "./types.ts";
 
 /**
  * The curated, fully-explained core of the LeetCode 500.

@@ -2,15 +2,15 @@
  * Public API of the @leetcode-500/data package.
  * The web app imports everything it needs from here.
  */
-export * from "./types";
-export { categories, categoryBySlug, categorySlugs } from "./categories";
-export { companies, companyBySlug } from "./companies";
-export { problems } from "./problems";
+export * from "./types.ts";
+export { categories, categoryBySlug, categorySlugs } from "./categories.ts";
+export { companies, companyBySlug } from "./companies.ts";
+export { problems } from "./problems.ts";
 
-import { categories } from "./categories";
-import { companies } from "./companies";
-import { problems } from "./problems";
-import type { CategorySlug, Difficulty, Problem } from "./types";
+import { categories } from "./categories.ts";
+import { companies } from "./companies.ts";
+import { problems } from "./problems.ts";
+import type { CategorySlug, Difficulty, Problem } from "./types.ts";
 
 /** Look up a single problem by its URL slug. */
 export function getProblemBySlug(slug: string): Problem | undefined {
