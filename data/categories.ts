@@ -1,4 +1,4 @@
-import type { Category } from "./types";
+import type { Category } from "./types.ts";
 
 /**
  * The 18 canonical interview patterns, in recommended study order.

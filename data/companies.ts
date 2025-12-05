@@ -1,4 +1,4 @@
-import type { Company } from "./types";
+import type { Company } from "./types.ts";
 
 /**
  * Companies whose 2025-2026 interview loops most frequently feature these
