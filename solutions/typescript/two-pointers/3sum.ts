@@ -1,0 +1,25 @@
+// LeetCode 15 — 3Sum (Medium)
+// Category: Two Pointers · Approach: Sort + Two Pointers
+// Time: O(n²) | Space: O(1)
+// Source: https://leetcode.com/problems/3sum/
+
+function threeSum(nums: number[]): number[][] {
+  nums.sort((a, b) => a - b);
+  const res: number[][] = [];
+  for (let i = 0; i < nums.length - 2; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    let l = i + 1, r = nums.length - 1;
+    while (l < r) {
+      const sum = nums[i] + nums[l] + nums[r];
+      if (sum < 0) l++;
+      else if (sum > 0) r--;
+      else {
+        res.push([nums[i], nums[l], nums[r]]);
+        l++; r--;
+        while (l < r && nums[l] === nums[l - 1]) l++;
+        while (l < r && nums[r] === nums[r + 1]) r--;
+      }
+    }
+  }
+  return res;
+}
