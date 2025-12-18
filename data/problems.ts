@@ -25,6 +25,14 @@ export const problems: Problem[] = [
     companies: ["amazon", "google", "apple", "microsoft", "meta", "bloomberg", "adobe"],
     frequency: 98,
     leetcodeUrl: "https://leetcode.com/problems/two-sum/",
+    pseudocode: `function twoSum(nums, target):
+  seen = {}                      // value -> index
+  for i, x in nums:
+    need = target - x
+    if need in seen:
+      return [seen[need], i]
+    seen[x] = i
+  return []`,
     statement:
       "You are given an array of integers `nums` and a single integer `target`. Exactly one pair of distinct positions in the array adds up to `target`, and your task is to return those two positions as a list `[i, j]`.\n\nThe two indices must be different (you cannot use the same element twice), and the pair may be returned in any order. A valid answer is guaranteed to exist, so there is no 'no solution' case to handle. The goal is a single-pass $O(n)$ solution rather than the $O(n^2)$ brute force that checks every possible pair.",
     description:
@@ -110,6 +118,13 @@ export const problems: Problem[] = [
     companies: ["amazon", "apple", "microsoft", "adobe"],
     frequency: 84,
     leetcodeUrl: "https://leetcode.com/problems/contains-duplicate/",
+    pseudocode: `function containsDuplicate(nums):
+  seen = empty set
+  for x in nums:
+    if x in seen:
+      return true
+    add x to seen
+  return false`,
     statement:
       "Given an integer array `nums`, determine whether any value appears more than once. Return `true` if at least one value occurs two or more times anywhere in the array, and `false` only when every element is distinct.\n\nThe values may appear in any order and can be negative. A single linear scan backed by a hash set is enough to decide.",
     description:
@@ -186,6 +201,12 @@ export const problems: Problem[] = [
     companies: ["amazon", "google", "meta", "microsoft", "uber", "bloomberg"],
     frequency: 79,
     leetcodeUrl: "https://leetcode.com/problems/group-anagrams/",
+    pseudocode: `function groupAnagrams(strs):
+  groups = {}                    // key -> list of words
+  for s in strs:
+    key = sort(characters of s)
+    groups[key].append(s)
+  return values of groups`,
     statement:
       "You are given an array of strings `strs`. Group together the strings that are anagrams of one another and return the collection of groups.\n\nTwo strings are anagrams when one is a rearrangement of the other — they use exactly the same letters with the same counts. Every input string belongs to exactly one group, and a group may contain only a single string. Both the order of the groups and the order of the strings inside each group are unrestricted.",
     description:
@@ -272,6 +293,18 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "meta", "apple", "microsoft", "lyft", "bloomberg"],
     frequency: 81,
     leetcodeUrl: "https://leetcode.com/problems/product-of-array-except-self/",
+    pseudocode: `function productExceptSelf(nums):
+  n = length(nums)
+  answer = array of n ones
+  prefix = 1
+  for i from 0 to n-1:
+    answer[i] = prefix
+    prefix = prefix * nums[i]
+  suffix = 1
+  for i from n-1 down to 0:
+    answer[i] = answer[i] * suffix
+    suffix = suffix * nums[i]
+  return answer`,
     statement:
       "Given an integer array `nums` of length `n`, return a new array `answer` of the same length in which `answer[i]` is the product of every element of `nums` other than `nums[i]`.\n\nThe intended solution must run in $O(n)$ time and is not allowed to use the division operator — so you cannot simply divide the total product by each element (which would also break whenever the array contains a zero). The problem guarantees that each of these products fits within a 32-bit integer.",
     description:
@@ -373,6 +406,14 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["meta", "microsoft", "amazon", "apple"],
     frequency: 76,
     leetcodeUrl: "https://leetcode.com/problems/valid-palindrome/",
+    pseudocode: `function isPalindrome(s):
+  l = 0; r = length(s) - 1
+  while l < r:
+    while l < r and not isAlnum(s[l]): l = l + 1
+    while l < r and not isAlnum(s[r]): r = r - 1
+    if lower(s[l]) != lower(s[r]): return false
+    l = l + 1; r = r - 1
+  return true`,
     statement:
       "For this problem a string counts as a palindrome if, after lowercasing every letter and removing all characters that are not letters or digits, the resulting sequence reads the same forwards and backwards.\n\nGiven a string `s`, return `true` when it meets this definition and `false` otherwise. Spaces, punctuation, and capitalization are ignored entirely. An empty string — or any string that contains no alphanumeric characters at all — is treated as a valid palindrome.",
     description:
@@ -466,6 +507,22 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "meta", "google", "apple", "microsoft", "adobe"],
     frequency: 88,
     leetcodeUrl: "https://leetcode.com/problems/3sum/",
+    pseudocode: `function threeSum(nums):
+  sort(nums)
+  res = []
+  for i from 0 to n-3:
+    if i > 0 and nums[i] == nums[i-1]: continue   // skip dup
+    l = i + 1; r = n - 1
+    while l < r:
+      s = nums[i] + nums[l] + nums[r]
+      if s < 0: l = l + 1
+      else if s > 0: r = r - 1
+      else:
+        res.append([nums[i], nums[l], nums[r]])
+        l = l + 1; r = r - 1
+        while l < r and nums[l] == nums[l-1]: l = l + 1
+        while l < r and nums[r] == nums[r+1]: r = r - 1
+  return res`,
     statement:
       "Given an integer array `nums`, return every unique triplet of values `[a, b, c]`, taken from three different indices, whose elements sum to zero.\n\nThe returned list must not contain duplicate triplets: two triplets made of the same three values are considered identical even when they come from different positions in the array. The order of the triplets, and the order of the numbers within each triplet, does not matter. If no qualifying triplet exists, return an empty list.",
     description:
@@ -588,6 +645,15 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "google", "meta", "bloomberg"],
     frequency: 74,
     leetcodeUrl: "https://leetcode.com/problems/container-with-most-water/",
+    pseudocode: `function maxArea(height):
+  l = 0; r = length(height) - 1
+  best = 0
+  while l < r:
+    area = (r - l) * min(height[l], height[r])
+    best = max(best, area)
+    if height[l] < height[r]: l = l + 1
+    else: r = r - 1
+  return best`,
     statement:
       "You are given an array `height` of `n` non-negative integers, where `height[i]` is the height of a vertical line standing at x-coordinate `i`. Choosing any two of these lines, together with the x-axis, forms a container.\n\nReturn the largest amount of water such a container can hold. Because the container cannot be tilted, the water is bounded by the shorter of the two chosen lines, so for lines at indices `l` and `r` the area is `(r - l) × min(height[l], height[r])`. Maximize this quantity over every pair of lines.",
     description:
@@ -679,6 +745,13 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "meta", "google", "microsoft", "bloomberg", "apple"],
     frequency: 90,
     leetcodeUrl: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    pseudocode: `function maxProfit(prices):
+  minPrice = +infinity
+  best = 0
+  for price in prices:
+    minPrice = min(minPrice, price)
+    best = max(best, price - minPrice)
+  return best`,
     statement:
       "You are given an array `prices` where `prices[i]` is the price of a given stock on day `i`. You may complete at most one transaction: choose a day to buy a single share and a strictly later day to sell it.\n\nReturn the maximum profit achievable from that single buy-then-sell. If no pair of days lets you sell higher than you bought (prices only fall or stay flat), the best you can do is not trade at all, so return `0`. You cannot sell before you buy.",
     description:
@@ -759,6 +832,16 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "google", "meta", "microsoft", "bloomberg", "adobe", "apple"],
     frequency: 92,
     leetcodeUrl: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    pseudocode: `function lengthOfLongestSubstring(s):
+  seen = empty set
+  left = 0; best = 0
+  for right from 0 to length(s)-1:
+    while s[right] in seen:
+      remove s[left] from seen
+      left = left + 1
+    add s[right] to seen
+    best = max(best, right - left + 1)
+  return best`,
     statement:
       "Given a string `s`, find the length of the longest substring that contains no repeated characters.\n\nA substring is a contiguous run of characters within `s` (unlike a subsequence, you cannot skip positions). Among all substrings in which every character is distinct, return the length of the longest one. The string may include letters, digits, symbols, and spaces; if `s` is empty the answer is `0`.",
     description:
@@ -857,6 +940,16 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "meta", "google", "microsoft", "bloomberg", "apple"],
     frequency: 89,
     leetcodeUrl: "https://leetcode.com/problems/valid-parentheses/",
+    pseudocode: `function isValid(s):
+  match = { ')':'(', ']':'[', '}':'{' }
+  stack = empty
+  for ch in s:
+    if ch is a closing bracket:
+      if stack empty or pop(stack) != match[ch]:
+        return false
+    else:
+      push ch onto stack
+  return stack is empty`,
     statement:
       "You are given a string `s` made up only of the six bracket characters `(`, `)`, `{`, `}`, `[`, and `]`. Decide whether the brackets are arranged validly.\n\nThe string is valid when every opening bracket is closed by a bracket of the same type, brackets close in the correct order (most-recently-opened closes first), and no closing bracket appears without a matching opener. Return `true` if all of these hold and `false` otherwise.",
     description:
@@ -950,6 +1043,15 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "google", "meta", "microsoft", "bloomberg"],
     frequency: 72,
     leetcodeUrl: "https://leetcode.com/problems/daily-temperatures/",
+    pseudocode: `function dailyTemperatures(temps):
+  answer = array of zeros, length n
+  stack = empty            // indices, temps decreasing
+  for i from 0 to n-1:
+    while stack not empty and temps[top(stack)] < temps[i]:
+      j = pop(stack)
+      answer[j] = i - j
+    push i onto stack
+  return answer`,
     statement:
       "You are given an array `temperatures` listing the daily temperature for a sequence of days. For each day, you want to know how long you must wait until a warmer day arrives.\n\nReturn an array `answer` of the same length where `answer[i]` is the number of days you have to wait after day `i` to reach a day with a strictly higher temperature. If no future day is warmer, set `answer[i]` to `0`.",
     description:
@@ -1046,6 +1148,14 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "google", "microsoft", "apple"],
     frequency: 80,
     leetcodeUrl: "https://leetcode.com/problems/binary-search/",
+    pseudocode: `function search(nums, target):
+  lo = 0; hi = n - 1
+  while lo <= hi:
+    mid = lo + (hi - lo) / 2     // floor division
+    if nums[mid] == target: return mid
+    if nums[mid] < target: lo = mid + 1
+    else: hi = mid - 1
+  return -1`,
     statement:
       "You are given a `nums` array sorted in ascending order with all-distinct values, plus an integer `target`. Search the array for `target`.\n\nReturn the index at which `target` occurs, or `-1` if it is not present. The expected running time is $O(\\log n)$, which rules out a linear scan and points to repeatedly halving the search range.",
     description:
@@ -1137,6 +1247,14 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     companies: ["amazon", "google", "meta", "bloomberg", "doordash"],
     frequency: 73,
     leetcodeUrl: "https://leetcode.com/problems/koko-eating-bananas/",
+    pseudocode: `function minEatingSpeed(piles, h):
+  lo = 1; hi = max(piles)
+  while lo < hi:
+    mid = (lo + hi) / 2          // floor division
+    hours = sum(ceil(p / mid) for p in piles)
+    if hours <= h: hi = mid      // feasible -> try slower
+    else: lo = mid + 1           // too slow -> go faster
+  return lo`,
     statement:
       "There are `piles` of bananas, where `piles[i]` is the number of bananas in the i-th pile, and the guards return in `h` hours. Koko picks a single constant eating speed `k` (bananas per hour) before she starts.\n\nEach hour she chooses one pile and eats up to `k` bananas from it; if the pile has fewer than `k` bananas left she finishes it and stops eating for that hour (she does not move on to another pile within the same hour). Return the smallest integer speed `k` that lets her finish every pile within `h` hours. It is always feasible because `h` is at least the number of piles.",
     description:
@@ -1231,6 +1349,14 @@ def min_eating_speed(piles: list[int], h: int) -> int:
     companies: ["amazon", "meta", "microsoft", "apple", "google", "adobe"],
     frequency: 91,
     leetcodeUrl: "https://leetcode.com/problems/reverse-linked-list/",
+    pseudocode: `function reverseList(head):
+  prev = null
+  while head != null:
+    next = head.next       // save the rest
+    head.next = prev       // flip the pointer
+    prev = head            // advance prev
+    head = next            // advance head
+  return prev`,
     statement:
       "You are given the `head` of a singly linked list. Reverse the list so that the node order is flipped end to end, and return the head of the reversed list.\n\nEvery node's `next` pointer should now point to what was previously its predecessor, the old tail becomes the new head, and the old head becomes the new tail (its `next` becomes null). An empty list or a single-node list is returned unchanged. The classic approach rewires pointers in place in one pass using $O(1)$ extra space.\n\n*In this repo's playground the list is represented as a plain array, e.g. `[1,2,3]` stands for 1 → 2 → 3, and you return the reversed array.*",
     description:
@@ -1342,6 +1468,10 @@ function reverseList(head: ListNode | null): ListNode | null {
     companies: ["amazon", "google", "microsoft", "apple", "linkedin"],
     frequency: 78,
     leetcodeUrl: "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+    pseudocode: `function maxDepth(node):
+  if node == null:
+    return 0
+  return 1 + max(maxDepth(node.left), maxDepth(node.right))`,
     statement:
       "You are given the `root` of a binary tree. Return its maximum depth.\n\nThe maximum depth is the number of nodes along the longest path from the root down to the farthest leaf node. An empty tree has depth `0`, and a tree consisting of a single node has depth `1`.\n\n*In this repo's playground the tree is supplied as a level-order array using `null` for absent children (LeetCode's serialization format), and you return the depth as an integer.*",
     description:
@@ -1451,6 +1581,30 @@ function maxDepth(root: TreeNode | null): number {
     companies: ["amazon", "google", "microsoft", "meta", "bloomberg"],
     frequency: 70,
     leetcodeUrl: "https://leetcode.com/problems/implement-trie-prefix-tree/",
+    pseudocode: `class Trie:
+  root = new node            // node has children map + isEnd flag
+
+  insert(word):
+    node = root
+    for ch in word:
+      if ch not in node.children:
+        node.children[ch] = new node
+      node = node.children[ch]
+    node.isEnd = true
+
+  walk(s):                   // return last node or null
+    node = root
+    for ch in s:
+      if ch not in node.children: return null
+      node = node.children[ch]
+    return node
+
+  search(word):
+    node = walk(word)
+    return node != null and node.isEnd
+
+  startsWith(prefix):
+    return walk(prefix) != null`,
     statement:
       "Design and implement a trie (prefix tree), a data structure for storing and retrieving strings by their characters. Your `Trie` class must support three operations:\n\n- `insert(word)` — add `word` to the trie.\n- `search(word)` — return `true` if `word` was previously inserted as a complete word, and `false` otherwise.\n- `startsWith(prefix)` — return `true` if any previously inserted word begins with `prefix`.\n\nThe key distinction is that `search` requires a full-word match (an inserted word terminates exactly there), whereas `startsWith` only needs the prefix path to exist.\n\n*In this repo's playground you are handed an `ops` list and an `args` list and return the array of results, with `null` for the void operations.*",
     description:
@@ -1600,6 +1754,13 @@ function maxDepth(root: TreeNode | null): number {
     companies: ["amazon", "meta", "google", "microsoft", "apple", "bloomberg"],
     frequency: 83,
     leetcodeUrl: "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+    pseudocode: `function findKthLargest(nums, k):
+  minHeap = empty
+  for x in nums:
+    push x onto minHeap
+    if size(minHeap) > k:
+      pop smallest from minHeap
+  return top of minHeap        // the k-th largest`,
     statement:
       "Given an integer array `nums` and an integer `k`, return the k-th largest element in the array.\n\nThis is the k-th largest element in sorted order, counting from the largest — not the k-th distinct element. Duplicates count individually, so for `k = 2` the answer is the second value you would see scanning the sorted array from the top, even if it equals the maximum. A strong solution beats the obvious full sort, for example with a size-`k` heap ($O(n \\log k)$) or Quickselect ($O(n)$ average).",
     description:
@@ -1678,6 +1839,16 @@ def find_kth_largest(nums: list[int], k: int) -> int:
     companies: ["amazon", "meta", "google", "apple", "microsoft", "uber"],
     frequency: 77,
     leetcodeUrl: "https://leetcode.com/problems/subsets/",
+    pseudocode: `function subsets(nums):
+  res = []
+  backtrack(start, path):
+    res.append(copy of path)        // record this subset
+    for i from start to n-1:
+      path.append(nums[i])          // choose
+      backtrack(i + 1, path)        // explore
+      path.pop()                    // un-choose
+  backtrack(0, [])
+  return res`,
     statement:
       "You are given an integer array `nums` whose elements are all distinct. Return every possible subset (the power set).\n\nThe power set includes the empty subset and the full array itself, giving $2^n$ subsets for an array of length `n`. The result must not contain any duplicate subset, and you may return the subsets — and the elements within each subset — in any order.",
     description:
@@ -1783,6 +1954,19 @@ def find_kth_largest(nums: list[int], k: int) -> int:
     companies: ["amazon", "meta", "google", "microsoft", "bloomberg", "uber"],
     frequency: 87,
     leetcodeUrl: "https://leetcode.com/problems/number-of-islands/",
+    pseudocode: `function numIslands(grid):
+  count = 0
+  for r in rows, c in cols:
+    if grid[r][c] == '1':
+      count = count + 1
+      sink(r, c)
+  return count
+
+function sink(r, c):
+  if out of bounds or grid[r][c] != '1': return
+  grid[r][c] = '0'                 // mark visited
+  sink(r+1, c); sink(r-1, c)
+  sink(r, c+1); sink(r, c-1)`,
     statement:
       "You are given an `m × n` grid whose cells are either `'1'` (land) or `'0'` (water). Count the number of islands.\n\nAn island is a maximal group of land cells connected horizontally or vertically (diagonal adjacency does not connect cells), and you may assume the grid is completely surrounded by water around its edges. Return how many separate islands the grid contains.",
     description:
@@ -1905,6 +2089,20 @@ def find_kth_largest(nums: list[int], k: int) -> int:
     companies: ["amazon", "google", "uber", "snowflake"],
     frequency: 66,
     leetcodeUrl: "https://leetcode.com/problems/network-delay-time/",
+    pseudocode: `function networkDelayTime(times, n, k):
+  adj = adjacency list from times
+  dist = map every node -> infinity
+  dist[k] = 0
+  pq = min-heap holding (0, k)
+  while pq not empty:
+    (d, u) = pop smallest by distance
+    if d > dist[u]: continue
+    for (v, w) in adj[u]:
+      if d + w < dist[v]:
+        dist[v] = d + w
+        push (dist[v], v) onto pq
+  ans = max(dist[node] for all nodes)
+  return ans if ans < infinity else -1`,
     statement:
       "There are `n` network nodes labelled from `1` to `n`. You are given a list `times` of directed, weighted edges where `times[i] = [u, v, w]` means a signal travels from node `u` to node `v` taking `w` units of time. A signal is sent simultaneously from a starting node `k`.\n\nReturn the minimum time needed for every one of the `n` nodes to receive the signal. If one or more nodes can never be reached from `k`, return `-1`. Equivalently, this is the largest of the shortest-path distances from `k` to all nodes.",
     description:
@@ -2021,6 +2219,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "apple", "adobe"],
     frequency: 82,
     leetcodeUrl: "https://leetcode.com/problems/climbing-stairs/",
+    pseudocode: `function climbStairs(n):
+  prev2 = 1; prev1 = 1
+  for i from 2 to n:
+    curr = prev1 + prev2
+    prev2 = prev1
+    prev1 = curr
+  return prev1`,
     statement:
       "You are climbing a staircase that takes `n` steps to reach the top. On each move you may climb either `1` step or `2` steps.\n\nReturn the number of distinct ordered sequences of moves that bring you exactly to the top. Two ways are different if at some point one takes a single step where the other takes a double. The count grows like the Fibonacci sequence.",
     description:
@@ -2099,6 +2304,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "microsoft", "linkedin"],
     frequency: 79,
     leetcodeUrl: "https://leetcode.com/problems/house-robber/",
+    pseudocode: `function rob(nums):
+  rob = 0; skip = 0
+  for v in nums:
+    newRob = skip + v          // rob this house
+    skip = max(rob, skip)      // best if we skip it
+    rob = newRob
+  return max(rob, skip)`,
     statement:
       "Houses along a street each hold some money, given by the array `nums`. A security system links every pair of directly adjacent houses and triggers an alarm if both are robbed on the same night.\n\nReturn the maximum total amount of money you can rob tonight without ever robbing two adjacent houses. You are free to skip any houses you like; the only restriction is that no two chosen houses may be next to each other.",
     description:
@@ -2178,6 +2390,14 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "meta", "uber", "bloomberg"],
     frequency: 84,
     leetcodeUrl: "https://leetcode.com/problems/coin-change/",
+    pseudocode: `function coinChange(coins, amount):
+  dp = array[0..amount] filled with INF
+  dp[0] = 0
+  for a from 1 to amount:
+    for coin in coins:
+      if coin <= a:
+        dp[a] = min(dp[a], dp[a - coin] + 1)
+  return dp[amount] if dp[amount] != INF else -1`,
     statement:
       "You are given an array `coins` of distinct coin denominations and an integer `amount` of money. You have an unlimited supply of each kind of coin.\n\nReturn the fewest number of coins whose values add up exactly to `amount`. If that total cannot be formed by any combination of the coins, return `-1`. When `amount` is `0`, the answer is `0` because no coins are needed.",
     description:
@@ -2268,6 +2488,12 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "bloomberg", "apple"],
     frequency: 71,
     leetcodeUrl: "https://leetcode.com/problems/unique-paths/",
+    pseudocode: `function uniquePaths(m, n):
+  row = array of n ones
+  repeat (m - 1) times:
+    for c from 1 to n-1:
+      row[c] = row[c] + row[c-1]
+  return row[n-1]`,
     statement:
       "A robot starts in the top-left cell of an `m × n` grid. At each step it can move only one cell to the right or one cell down, and it wants to reach the bottom-right cell.\n\nReturn the number of distinct paths the robot can take from the start corner to the destination corner. The answer is guaranteed to fit in a 32-bit integer. (Combinatorially this is choosing which of the total moves are 'down', but it also has a clean grid-DP solution.)",
     description:
@@ -2351,6 +2577,15 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "microsoft", "adobe"],
     frequency: 75,
     leetcodeUrl: "https://leetcode.com/problems/longest-common-subsequence/",
+    pseudocode: `function LCS(a, b):
+  dp = (len(a)+1) x (len(b)+1) grid of zeros
+  for i from 1 to len(a):
+    for j from 1 to len(b):
+      if a[i-1] == b[j-1]:
+        dp[i][j] = dp[i-1][j-1] + 1      // match -> diagonal
+      else:
+        dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+  return dp[len(a)][len(b)]`,
     statement:
       "Given two strings `text1` and `text2`, return the length of their longest common subsequence, or `0` if they share no subsequence.\n\nA subsequence is formed by deleting zero or more characters from a string without changing the relative order of the characters that remain. A common subsequence is one that appears in both strings. For example, `\"ace\"` is a subsequence of `\"abcde\"`. You only need the length of the longest such shared subsequence, not the subsequence itself.",
     description:
@@ -2448,6 +2683,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "meta", "microsoft", "apple", "linkedin", "bloomberg"],
     frequency: 86,
     leetcodeUrl: "https://leetcode.com/problems/maximum-subarray/",
+    pseudocode: `function maxSubArray(nums):
+  current = nums[0]
+  best = nums[0]
+  for v in nums from index 1:
+    current = max(v, current + v)     // restart or extend
+    best = max(best, current)
+  return best`,
     statement:
       "Given an integer array `nums`, find the contiguous subarray (containing at least one element) that has the largest possible sum, and return that sum.\n\nA subarray is a contiguous, non-empty slice of the array. Because the values can be negative, the answer is not simply the sum of all positives; you must choose the best continuous run. When every element is negative, the answer is the single largest (least negative) element.",
     description:
@@ -2529,6 +2771,12 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "meta", "apple"],
     frequency: 76,
     leetcodeUrl: "https://leetcode.com/problems/jump-game/",
+    pseudocode: `function canJump(nums):
+  reach = 0
+  for i from 0 to n-1:
+    if i > reach: return false        // stranded
+    reach = max(reach, i + nums[i])
+  return true`,
     statement:
       "You are given an integer array `nums`. You begin at the first index, and each `nums[i]` is the maximum number of indices you may jump forward from position `i` (you may also jump any smaller amount).\n\nReturn `true` if it is possible to reach the last index starting from the first, and `false` if you can become stranded before reaching it. A value of `0` means you cannot advance from that position, so reaching such a cell with no remaining reach leaves you stuck.",
     description:
@@ -2615,6 +2863,15 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "meta", "microsoft", "bloomberg", "salesforce"],
     frequency: 88,
     leetcodeUrl: "https://leetcode.com/problems/merge-intervals/",
+    pseudocode: `function merge(intervals):
+  sort intervals by start
+  merged = []
+  for [start, end] in intervals:
+    if merged not empty and start <= merged.last.end:
+      merged.last.end = max(merged.last.end, end)
+    else:
+      merged.append([start, end])
+  return merged`,
     statement:
       "You are given an array `intervals` where each element `[start, end]` represents a closed interval. Merge all intervals that overlap and return the resulting set of non-overlapping intervals that together cover exactly the same ranges as the input.\n\nTwo intervals overlap when they share at least one point, including the case where one ends exactly where the next begins (e.g. `[1,4]` and `[4,5]` merge into `[1,5]`). The output should be sorted in ascending order by start value.",
     description:
@@ -2707,6 +2964,15 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "meta", "google", "microsoft", "apple"],
     frequency: 74,
     leetcodeUrl: "https://leetcode.com/problems/rotate-image/",
+    pseudocode: `function rotate(matrix):
+  n = size(matrix)
+  // 1) transpose across the main diagonal
+  for i from 0 to n-1:
+    for j from i+1 to n-1:
+      swap(matrix[i][j], matrix[j][i])
+  // 2) reverse each row
+  for each row in matrix:
+    reverse(row)`,
     statement:
       "You are given an `n × n` 2D matrix representing an image. Rotate the image by 90 degrees clockwise.\n\nThe rotation must be done in place: modify the input matrix directly using $O(1)$ extra space rather than allocating a second matrix. After rotation, the element originally at row `r`, column `c` ends up at row `c`, column `n-1-r`.\n\n*In this repo's playground the rotated matrix is returned so it can be graded.*",
     description:
@@ -2793,6 +3059,11 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     companies: ["amazon", "google", "apple", "microsoft"],
     frequency: 80,
     leetcodeUrl: "https://leetcode.com/problems/single-number/",
+    pseudocode: `function singleNumber(nums):
+  result = 0
+  for x in nums:
+    result = result XOR x       // equal pairs cancel to 0
+  return result`,
     statement:
       "You are given a non-empty integer array `nums` in which every value appears exactly twice except for one value, which appears only once. Find and return that single value.\n\nThe intended solution runs in linear time and uses only constant extra space — so sorting or a hash map, while correct, miss the point. The XOR trick (a value XOR'd with itself cancels to zero) folds the whole array down to the lone element.",
     description:
@@ -2862,6 +3133,12 @@ def single_number(nums: list[int]) -> int:
     companies: ["amazon", "apple", "microsoft"],
     frequency: 68,
     leetcodeUrl: "https://leetcode.com/problems/number-of-1-bits/",
+    pseudocode: `function hammingWeight(n):
+  count = 0
+  while n != 0:
+    n = n AND (n - 1)          // clear the lowest set bit
+    count = count + 1
+  return count`,
     statement:
       "Given an unsigned 32-bit integer `n`, return the number of bits set to `1` in its binary representation. This count is also known as the Hamming weight.\n\nFor example, `11` is `1011` in binary and therefore has three set bits. A neat approach repeatedly clears the lowest set bit with `n & (n - 1)`, looping once per one-bit instead of once per bit position.",
     description:

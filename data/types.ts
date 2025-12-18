@@ -155,6 +155,8 @@ export interface Problem {
   intuition: string;
   /** Ordered solution steps. */
   approach: string[];
+  /** Language-agnostic pseudocode for the core algorithm (rendered as a code block). */
+  pseudocode?: string;
   /** Mermaid diagram source (rendered in the web app). */
   diagram?: string;
   complexity: Complexity;
