@@ -141,8 +141,14 @@ export interface Problem {
   frequency: number;
   leetcodeUrl: string;
   premium?: boolean;
-  /** Markdown problem summary (original wording paraphrased). */
+  /** Short one/two-line summary used in cards and lists. */
   description: string;
+  /**
+   * Full, self-contained problem statement in markdown (original wording — a
+   * paraphrase, not LeetCode's copyrighted text). Supports inline code and
+   * LaTeX. Rendered as the primary problem section on the detail page.
+   */
+  statement?: string;
   examples: WorkedExample[];
   constraints?: string[];
   /** Markdown: the key insight that unlocks the problem. */
