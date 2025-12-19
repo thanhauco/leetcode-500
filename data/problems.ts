@@ -53,7 +53,13 @@ export const problems: Problem[] = [
     diagram: `graph LR
   A["x = 2, need 7"] -->|not seen| B["store 2 → 0"]
   B --> C["x = 7, need 2"]
-  C -->|seen at 0| D["return [0, 1]"]`,
+  C -->|seen at 0| D["return [0, 1]"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A inp
+  class B,C step
+  class D ok`,
     complexity: { time: "O(n)", space: "O(n)", note: "One pass; the map holds at most n entries." },
     solutions: [
       {
@@ -144,7 +150,13 @@ export const problems: Problem[] = [
     ],
     diagram: `graph LR
   A["1"] --> B["2"] --> C["3"] --> D["1 already in set"]
-  D --> E["return true"]`,
+  D --> E["return true"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,B,C step
+  class D dec
+  class E ok`,
     complexity: { time: "O(n)", space: "O(n)" },
     solutions: [
       {
@@ -230,7 +242,11 @@ export const problems: Problem[] = [
   A["ate"] --> K1
   TAN["tan"] --> K2["key 'ant'"]
   NAT["nat"] --> K2
-  BAT["bat"] --> K3["key 'abt'"]`,
+  BAT["bat"] --> K3["key 'abt'"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef key fill:#a855f7,stroke:#7e22ce,color:#fff,font-weight:bold
+  class E,T,A,TAN,NAT,BAT step
+  class K1,K2,K3 key`,
     complexity: { time: "O(n·k log k)", space: "O(n·k)", note: "n words of length k; the count-based key is O(n·k)." },
     solutions: [
       {
@@ -328,7 +344,11 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
   end
   subgraph Suffix
     S3["1"] --> S2["4"] --> S1["12"] --> S0["24"]
-  end`,
+  end
+  classDef pre fill:#6366f1,stroke:#4338ca,color:#fff
+  classDef suf fill:#f97316,stroke:#c2410c,color:#fff
+  class P0,P1,P2,P3 pre
+  class S3,S2,S1,S0 suf`,
     complexity: { time: "O(n)", space: "O(1)", note: "Output array doesn't count as extra space." },
     solutions: [
       {
@@ -435,7 +455,15 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
   L["left →"] --- M["...meet..."] --- R["← right"]
   M --> C{"chars equal?"}
   C -- no --> F["false"]
-  C -- yes --> N["move inward"]`,
+  C -- yes --> N["move inward"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  classDef bad fill:#ef4444,stroke:#b91c1c,color:#fff,font-weight:bold
+  class L,R inp
+  class C dec
+  class N ok
+  class F bad`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -545,7 +573,15 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
   TP --> S{"sum < 0?"}
   S -- yes --> RL["l++"]
   S -- "> 0" --> RR["r--"]
-  S -- "= 0" --> REC["record + skip dups"]`,
+  S -- "= 0" --> REC["record + skip dups"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class F inp
+  class TP,RL,RR step
+  class S dec
+  class REC ok`,
     complexity: { time: "O(n²)", space: "O(1)", note: "Excluding the output and sort's stack." },
     solutions: [
       {
@@ -675,7 +711,14 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
   L["l (short)"] -->|move in| L2["l+1"]
   R["r (tall)"]
   L2 --- R
-  note["shorter wall limits area → advance it"]`,
+  note["shorter wall limits area → advance it"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef warn fill:#f59e0b,stroke:#b45309,color:#1f2937
+  class L warn
+  class R inp
+  class L2 step
+  class note warn`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -770,7 +813,11 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
       "Return best.",
     ],
     diagram: `graph LR
-  A["7 → min=7"] --> B["1 → min=1"] --> C["5 → profit 4"] --> D["6 → profit 5"] --> E["best = 5"]`,
+  A["7 → min=7"] --> B["1 → min=1"] --> C["5 → profit 4"] --> D["6 → profit 5"] --> E["best = 5"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,B,C,D step
+  class E ok`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -863,7 +910,14 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     diagram: `graph LR
   A["right expands →"] --> B{"duplicate?"}
   B -- yes --> C["shrink left until unique"]
-  B -- no --> D["update best length"]`,
+  B -- no --> D["update best length"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A step
+  class B dec
+  class C step
+  class D ok`,
     complexity: { time: "O(n)", space: "O(min(n, alphabet))" },
     solutions: [
       {
@@ -969,7 +1023,11 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
       "Valid iff the stack is empty at the end.",
     ],
     diagram: `graph LR
-  A["( push"] --> B["[ push"] --> C["] pop matches ["] --> D[") pop matches ("] --> E["empty → true"]`,
+  A["( push"] --> B["[ push"] --> C["] pop matches ["] --> D[") pop matches ("] --> E["empty → true"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,B,C,D step
+  class E ok`,
     complexity: { time: "O(n)", space: "O(n)" },
     solutions: [
       {
@@ -1073,7 +1131,13 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
   A["push cooler days"] --> B{"today warmer than top?"}
   B -- yes --> C["pop, answer = i - top"]
   C --> B
-  B -- no --> D["push i"]`,
+  B -- no --> D["push i"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,D step
+  class B dec
+  class C ok`,
     complexity: { time: "O(n)", space: "O(n)" },
     solutions: [
       {
@@ -1177,7 +1241,15 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
   A["lo ... mid ... hi"] --> B{"nums[mid] vs target"}
   B -- "=" --> C["return mid"]
   B -- "<" --> D["lo = mid + 1"]
-  B -- ">" --> E["hi = mid - 1"]`,
+  B -- ">" --> E["hi = mid - 1"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A inp
+  class B dec
+  class C ok
+  class D,E step`,
     complexity: { time: "O(log n)", space: "O(1)" },
     solutions: [
       {
@@ -1275,7 +1347,15 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     diagram: `graph LR
   A["speed range [1, max]"] --> B{"hours(mid) ≤ h?"}
   B -- yes --> C["try slower"]
-  B -- no --> D["need faster"]`,
+  B -- no --> D["need faster"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  classDef warn fill:#f97316,stroke:#c2410c,color:#fff
+  class A inp
+  class B dec
+  class C ok
+  class D warn`,
     complexity: { time: "O(n log m)", space: "O(1)", note: "m = max pile size." },
     solutions: [
       {
@@ -1375,7 +1455,11 @@ def min_eating_speed(piles: list[int], h: int) -> int:
     ],
     diagram: `graph LR
   N1["1"] -->|was| N2["2"] -->|was| N3["3"]
-  R3["3"] -->|now| R2["2"] -->|now| R1["1"]`,
+  R3["3"] -->|now| R2["2"] -->|now| R1["1"]
+  classDef old fill:#94a3b8,stroke:#475569,color:#0b1220
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class N1,N2,N3 old
+  class R1,R2,R3 ok`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -1492,7 +1576,13 @@ function reverseList(head: ListNode | null): ListNode | null {
   A["3"] --> B["9"]
   A --> C["20"]
   C --> D["15"]
-  C --> E["7"]`,
+  C --> E["7"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A inp
+  class C step
+  class B,D,E ok`,
     complexity: { time: "O(n)", space: "O(h)", note: "h = tree height (recursion stack)." },
     solutions: [
       {
@@ -1627,7 +1717,13 @@ function maxDepth(root: TreeNode | null): number {
     diagram: `graph TD
   R["root"] --> A["a"] --> P1["p"] --> P2["p"]
   P2 --> L["l (app·end)"]
-  L --> E["e (apple·end)"]`,
+  L --> E["e (apple·end)"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class R inp
+  class A,P1,P2 step
+  class L,E ok`,
     complexity: { time: "O(L) per op", space: "O(total chars)", note: "L = word/prefix length." },
     solutions: [
       {
@@ -1780,7 +1876,15 @@ function maxDepth(root: TreeNode | null): number {
     diagram: `graph LR
   A["stream of nums"] --> H["min-heap size k"]
   H -->|"size > k"| P["pop smallest"]
-  H --> R["root = kth largest"]`,
+  H --> R["root = kth largest"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef warn fill:#f97316,stroke:#c2410c,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A inp
+  class H step
+  class P warn
+  class R ok`,
     complexity: { time: "O(n log k)", space: "O(k)", note: "Quickselect: O(n) average, O(1) extra." },
     solutions: [
       {
@@ -1872,7 +1976,13 @@ def find_kth_largest(nums: list[int], k: int) -> int:
   Root --> C["[3]"]
   A --> AB["[1,2]"]
   A --> AC["[1,3]"]
-  AB --> ABC["[1,2,3]"]`,
+  AB --> ABC["[1,2,3]"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class Root inp
+  class A,B,C,AB,AC step
+  class ABC ok`,
     complexity: { time: "O(n·2^n)", space: "O(n)", note: "2^n subsets, each up to length n; recursion depth n." },
     solutions: [
       {
@@ -1991,7 +2101,15 @@ function sink(r, c):
   F -- yes --> C["count++ and DFS sink island"]
   F -- no --> N["skip"]
   C --> S
-  N --> S`,
+  N --> S
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class S inp
+  class F dec
+  class C ok
+  class N step`,
     complexity: { time: "O(m·n)", space: "O(m·n)", note: "Recursion stack in the worst case." },
     solutions: [
       {
@@ -2124,7 +2242,13 @@ function sink(r, c):
   K["k = 2"] -->|1| A["1"]
   K -->|1| B["3"]
   B -->|1| C["4"]
-  note["answer = max shortest-path = 2"]`,
+  note["answer = max shortest-path = 2"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class K inp
+  class A,B,C step
+  class note ok`,
     complexity: { time: "O(E log V)", space: "O(V + E)" },
     solutions: [
       {
@@ -2246,7 +2370,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     diagram: `graph LR
   A["ways(n-2)"] --> C["ways(n)"]
   B["ways(n-1)"] --> C
-  C --> D["= sum of the two below"]`,
+  C --> D["= sum of the two below"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  classDef warn fill:#f59e0b,stroke:#b45309,color:#1f2937
+  class A,B step
+  class C ok
+  class D warn`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -2332,7 +2462,14 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
   P2["best(i-2)"] -->|+ nums[i]| R["rob i"]
   P1["best(i-1)"] --> S["skip i"]
   R --> M["best(i) = max(rob, skip)"]
-  S --> M`,
+  S --> M
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef warn fill:#f97316,stroke:#c2410c,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class P1,P2 step
+  class R warn
+  class S step
+  class M ok`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -2417,7 +2554,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     diagram: `graph LR
   Z["dp[0]=0"] --> A["dp[a] = min over coins"]
   A --> B["dp[a-coin] + 1"]
-  B --> C["dp[amount] or -1"]`,
+  B --> C["dp[amount] or -1"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class Z inp
+  class A,B step
+  class C ok`,
     complexity: { time: "O(amount · coins)", space: "O(amount)" },
     solutions: [
       {
@@ -2514,7 +2657,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     diagram: `graph TD
   A["paths(r-1,c)"] --> C["paths(r,c)"]
   B["paths(r,c-1)"] --> C
-  C --> D["sum from top + left"]`,
+  C --> D["sum from top + left"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  classDef warn fill:#f59e0b,stroke:#b45309,color:#1f2937
+  class A,B step
+  class C ok
+  class D warn`,
     complexity: { time: "O(m·n)", space: "O(n)" },
     solutions: [
       {
@@ -2606,7 +2755,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     diagram: `graph TD
   M{"chars match?"}
   M -- yes --> D["1 + dp[i-1][j-1] (diagonal)"]
-  M -- no --> X["max(dp[i-1][j], dp[i][j-1])"]`,
+  M -- no --> X["max(dp[i-1][j], dp[i][j-1])"]
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class M dec
+  class D ok
+  class X step`,
     complexity: { time: "O(m·n)", space: "O(m·n)", note: "Reducible to O(min(m,n)) with two rows." },
     solutions: [
       {
@@ -2710,7 +2865,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     diagram: `graph LR
   A["current + v"] --> M{"max"}
   B["v (restart)"] --> M
-  M --> C["best = max(best, current)"]`,
+  M --> C["best = max(best, current)"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,B step
+  class M dec
+  class C ok`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -2797,7 +2958,15 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     diagram: `graph LR
   A["i ≤ reach?"] -- no --> F["false"]
   A -- yes --> B["reach = max(reach, i + nums[i])"]
-  B --> C["end reachable → true"]`,
+  B --> C["end reachable → true"]
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  classDef bad fill:#ef4444,stroke:#b91c1c,color:#fff,font-weight:bold
+  class A dec
+  class B step
+  class C ok
+  class F bad`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -2892,7 +3061,15 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     diagram: `graph LR
   S["sort by start"] --> O{"next.start ≤ last.end?"}
   O -- yes --> M["extend last.end"]
-  O -- no --> A["append new interval"]`,
+  O -- no --> A["append new interval"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class S inp
+  class O dec
+  class M ok
+  class A step`,
     complexity: { time: "O(n log n)", space: "O(n)", note: "Dominated by the sort." },
     solutions: [
       {
@@ -2990,7 +3167,13 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
       "The matrix is now rotated 90° clockwise.",
     ],
     diagram: `graph LR
-  A["original"] --> T["transpose (swap i,j)"] --> R["reverse each row"] --> O["rotated 90° CW"]`,
+  A["original"] --> T["transpose (swap i,j)"] --> R["reverse each row"] --> O["rotated 90° CW"]
+  classDef inp fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A inp
+  class T,R step
+  class O ok`,
     complexity: { time: "O(n²)", space: "O(1)" },
     solutions: [
       {
@@ -3083,7 +3266,11 @@ def network_delay_time(times: list[list[int]], n: int, k: int) -> int:
     ],
     diagram: `graph LR
   A["2 ^ 2 = 0"] --> B["0 ^ 1 = 1"]
-  B --> C["pairs cancel → unique remains"]`,
+  B --> C["pairs cancel → unique remains"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,B step
+  class C ok`,
     complexity: { time: "O(n)", space: "O(1)" },
     solutions: [
       {
@@ -3160,7 +3347,13 @@ def single_number(nums: list[int]) -> int:
   B --> C["count++"]
   C --> D{"n == 0?"}
   D -- no --> A
-  D -- yes --> E["return count"]`,
+  D -- yes --> E["return count"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,B,C step
+  class D dec
+  class E ok`,
     complexity: { time: "O(set bits)", space: "O(1)" },
     solutions: [
       {
