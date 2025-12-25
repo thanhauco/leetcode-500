@@ -23,6 +23,8 @@
 | 🏢 **Company mapping** | Filter by Amazon, Google, Meta, Microsoft, Apple, Bloomberg, and 20+ more — see what *your* target company actually asks. |
 | 📝 **Deep explanations** | Each problem has an intuition write-up, a Mermaid diagram, a worked example, and Big-O analysis. |
 | 💻 **Multi-language solutions** | Idiomatic Python **and** TypeScript for every solved problem. |
+| 🧪 **Interactive playground** | Edit and run each solution against ingested test cases in a sandboxed Web Worker — instant pass/fail, right in the browser. |
+| 🧮 **Markdown · LaTeX · pseudocode** | Statements render with Markdown + KaTeX; every problem ships language-agnostic pseudocode and a colorful Mermaid walkthrough. |
 | 🌐 **Next.js web app** | Browse, search, and filter the whole set in a fast, responsive UI with live diagrams and syntax-highlighted code. |
 
 ---
@@ -139,7 +141,7 @@ Green = start here · Amber = high-leverage mid-game · Red = hardest, do last.
 ## 🌐 Run the web app
 
 ```bash
-cd web
+# from the repo root — npm workspaces install the data package + web together
 npm install
 npm run dev
 # open http://localhost:3000
@@ -148,10 +150,12 @@ npm run dev
 Production build:
 
 ```bash
-cd web
 npm run build
 npm start
 ```
+
+> Requires Node 20+ (developed on Node 24). The playground executes your JavaScript in a
+> sandboxed Web Worker — nothing leaves your browser.
 
 ---
 
