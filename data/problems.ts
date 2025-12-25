@@ -3406,6 +3406,323 @@ def single_number(nums: list[int]) -> int:
     hints: ["n & (n-1) clears the lowest set bit.", "Loop until n becomes 0."],
     relatedIds: [338, 190, 461],
   },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Additional problems — Arrays & Hashing
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    id: 242,
+    slug: "valid-anagram",
+    title: "Valid Anagram",
+    difficulty: "Easy",
+    category: "arrays-hashing",
+    patterns: ["Hash Map", "Frequency Count"],
+    companies: ["amazon", "google", "meta", "microsoft", "bloomberg"],
+    frequency: 83,
+    leetcodeUrl: "https://leetcode.com/problems/valid-anagram/",
+    statement:
+      "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.\n\n`t` is an anagram of `s` when it uses exactly the same letters with the same frequencies — it is a rearrangement of `s`. Strings of different lengths can never be anagrams. The classic version assumes lowercase English letters; the same counting idea extends to Unicode.",
+    description:
+      "Return whether string `t` is an anagram of string `s` (same letters with the same counts).",
+    examples: [
+      { input: 's = "anagram", t = "nagaram"', output: "true" },
+      { input: 's = "rat", t = "car"', output: "false" },
+    ],
+    constraints: ["1 ≤ s.length, t.length ≤ 5·10^4", "s and t consist of lowercase English letters."],
+    intuition:
+      "Two strings are anagrams exactly when their letter-frequency maps are identical. Count the letters of `s`, then decrement those counts while scanning `t`; if any count goes negative — or the lengths differ — they cannot match.",
+    approach: [
+      "If the lengths differ, return false immediately.",
+      "Count each character of `s` in a map.",
+      "Scan `t`, decrementing counts; a missing or zero count means failure.",
+      "If every character is consumed exactly, return true.",
+    ],
+    pseudocode: `function isAnagram(s, t):
+  if length(s) != length(t): return false
+  count = {}
+  for ch in s: count[ch] = count[ch] + 1
+  for ch in t:
+    if count[ch] is 0 or missing: return false
+    count[ch] = count[ch] - 1
+  return true`,
+    diagram: `graph LR
+  A["count letters of s"] --> B{"t matches counts?"}
+  B -- yes --> C["true"]
+  B -- no --> D["false"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  classDef bad fill:#ef4444,stroke:#b91c1c,color:#fff,font-weight:bold
+  class A step
+  class B dec
+  class C ok
+  class D bad`,
+    complexity: { time: "O(n)", space: "O(1)", note: "At most 26 letter counts." },
+    solutions: [
+      {
+        language: "python",
+        label: "Counter",
+        code: `from collections import Counter
+
+def is_anagram(s: str, t: str) -> bool:
+    return Counter(s) == Counter(t)`,
+      },
+      {
+        language: "typescript",
+        label: "Frequency map",
+        code: `function isAnagram(s: string, t: string): boolean {
+  if (s.length !== t.length) return false;
+  const count = new Map<string, number>();
+  for (const c of s) count.set(c, (count.get(c) ?? 0) + 1);
+  for (const c of t) {
+    const n = count.get(c) ?? 0;
+    if (n === 0) return false;
+    count.set(c, n - 1);
+  }
+  return true;
+}`,
+      },
+    ],
+    runner: {
+      entry: "isAnagram",
+      comparison: "deep",
+      jsStarter: `function isAnagram(s, t) {
+  // Return true if t is an anagram of s.
+  // TODO: implement
+}`,
+      jsReference: `function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
+  const count = {};
+  for (const c of s) count[c] = (count[c] || 0) + 1;
+  for (const c of t) {
+    if (!count[c]) return false;
+    count[c]--;
+  }
+  return true;
+}`,
+    },
+    tests: [
+      { name: "anagram", args: ["anagram", "nagaram"], expected: true },
+      { name: "not anagram", args: ["rat", "car"], expected: false },
+      { name: "different lengths", args: ["a", "ab"], expected: false },
+      { name: "same string", args: ["listen", "silent"], expected: true },
+    ],
+    hints: ["Anagrams share the same letter counts.", "Different lengths can't be anagrams."],
+    relatedIds: [49, 1, 383],
+  },
+  {
+    id: 347,
+    slug: "top-k-frequent-elements",
+    title: "Top K Frequent Elements",
+    difficulty: "Medium",
+    category: "arrays-hashing",
+    patterns: ["Hash Map", "Bucket Sort"],
+    companies: ["amazon", "meta", "google", "microsoft", "uber", "bloomberg"],
+    frequency: 85,
+    leetcodeUrl: "https://leetcode.com/problems/top-k-frequent-elements/",
+    statement:
+      "Given an integer array `nums` and an integer `k`, return the `k` most frequently occurring elements. You may return the answer in any order.\n\nThe answer is guaranteed to be unique. A strong solution runs better than O(n log n) — counting plus bucket sort achieves O(n), since frequencies range only from 1 to the array length.",
+    description: "Return the `k` most frequent elements of `nums`, in any order.",
+    examples: [
+      { input: "nums = [1,1,1,2,2,3], k = 2", output: "[1,2]" },
+      { input: "nums = [1], k = 1", output: "[1]" },
+    ],
+    constraints: ["1 ≤ nums.length ≤ 10^5", "k is in the range [1, number of distinct elements]", "The answer is unique."],
+    intuition:
+      "Count each value's frequency, then place values into buckets indexed by frequency. Walking the buckets from the highest frequency downward yields the most frequent elements first — no comparison sort needed, so the whole thing is linear.",
+    approach: [
+      "Build a frequency map of value → count.",
+      "Create buckets where bucket[f] holds all values that occur f times.",
+      "Iterate buckets from the highest frequency down, collecting values.",
+      "Stop once k values are collected.",
+    ],
+    pseudocode: `function topKFrequent(nums, k):
+  count = {}
+  for x in nums: count[x] = count[x] + 1
+  buckets = array of (length(nums)+1) empty lists
+  for value, freq in count: buckets[freq].append(value)
+  res = []
+  for f from length(nums) down to 1:
+    for value in buckets[f]:
+      res.append(value)
+      if size(res) == k: return res
+  return res`,
+    diagram: `graph LR
+  A["count frequencies"] --> B["bucket by frequency"]
+  B --> C["scan high → low, take k"]
+  C --> D["k most frequent"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,B,C step
+  class D ok`,
+    complexity: { time: "O(n)", space: "O(n)", note: "Bucket sort avoids the log factor." },
+    solutions: [
+      {
+        language: "python",
+        label: "Counter",
+        code: `from collections import Counter
+
+def top_k_frequent(nums: list[int], k: int) -> list[int]:
+    return [value for value, _ in Counter(nums).most_common(k)]`,
+      },
+      {
+        language: "typescript",
+        label: "Bucket sort",
+        code: `function topKFrequent(nums: number[], k: number): number[] {
+  const count = new Map<number, number>();
+  for (const x of nums) count.set(x, (count.get(x) ?? 0) + 1);
+  const buckets: number[][] = Array.from({ length: nums.length + 1 }, () => []);
+  for (const [val, freq] of count) buckets[freq].push(val);
+  const res: number[] = [];
+  for (let f = buckets.length - 1; f >= 1 && res.length < k; f--) {
+    for (const val of buckets[f]) {
+      res.push(val);
+      if (res.length === k) break;
+    }
+  }
+  return res;
+}`,
+      },
+    ],
+    runner: {
+      entry: "topKFrequent",
+      comparison: "canonical",
+      jsStarter: `function topKFrequent(nums, k) {
+  // Return the k most frequent values (any order).
+  // TODO: implement
+}`,
+      jsReference: `function topKFrequent(nums, k) {
+  const count = new Map();
+  for (const x of nums) count.set(x, (count.get(x) || 0) + 1);
+  const buckets = Array.from({ length: nums.length + 1 }, () => []);
+  for (const [val, freq] of count) buckets[freq].push(val);
+  const res = [];
+  for (let f = buckets.length - 1; f >= 1 && res.length < k; f--) {
+    for (const val of buckets[f]) {
+      res.push(val);
+      if (res.length === k) break;
+    }
+  }
+  return res;
+}`,
+    },
+    tests: [
+      { name: "two", args: [[1, 1, 1, 2, 2, 3], 2], expected: [1, 2] },
+      { name: "single", args: [[1], 1], expected: [1] },
+      { name: "tie", args: [[4, 4, 5, 5, 6], 2], expected: [4, 5] },
+    ],
+    hints: ["Count first.", "Bucket by frequency to avoid sorting."],
+    relatedIds: [215, 692, 451],
+  },
+  {
+    id: 128,
+    slug: "longest-consecutive-sequence",
+    title: "Longest Consecutive Sequence",
+    difficulty: "Medium",
+    category: "arrays-hashing",
+    patterns: ["Hash Set", "Sequence Start"],
+    companies: ["amazon", "google", "meta", "microsoft", "bloomberg"],
+    frequency: 80,
+    leetcodeUrl: "https://leetcode.com/problems/longest-consecutive-sequence/",
+    statement:
+      "Given an unsorted integer array `nums`, return the length of the longest run of consecutive integers (e.g. 3, 4, 5, 6). The elements do not need to be adjacent in the array, and the algorithm must run in O(n) time.\n\nThe key constraint is the linear time bound, which rules out sorting. Duplicates are ignored, and an empty array has a longest sequence of length 0.",
+    description: "Return the length of the longest run of consecutive integers in `nums`, in O(n).",
+    examples: [
+      { input: "nums = [100,4,200,1,3,2]", output: "4", explanation: "The run [1,2,3,4] has length 4." },
+      { input: "nums = [0,3,7,2,5,8,4,6,0,1]", output: "9" },
+    ],
+    constraints: ["0 ≤ nums.length ≤ 10^5", "-10^9 ≤ nums[i] ≤ 10^9"],
+    intuition:
+      "Put every value in a hash set for O(1) membership. A number begins a sequence only if its predecessor is absent — so start counting only at those sequence starts and walk upward. Each number is visited at most twice, keeping the whole scan linear.",
+    approach: [
+      "Insert all numbers into a hash set.",
+      "For each number that has no predecessor (x-1 absent), it starts a run.",
+      "Walk x+1, x+2, … while they exist, measuring the run length.",
+      "Track and return the longest run found.",
+    ],
+    pseudocode: `function longestConsecutive(nums):
+  set = set(nums)
+  best = 0
+  for x in set:
+    if (x - 1) not in set:          // x starts a run
+      length = 1
+      while (x + length) in set: length = length + 1
+      best = max(best, length)
+  return best`,
+    diagram: `graph LR
+  A["put all in a set"] --> B{"is x a start? (x-1 absent)"}
+  B -- yes --> C["count x, x+1, x+2 ..."]
+  B -- no --> D["skip"]
+  C --> E["track longest run"]
+  classDef step fill:#0ea5e9,stroke:#0369a1,color:#fff
+  classDef dec fill:#f59e0b,stroke:#b45309,color:#1f2937,font-weight:bold
+  classDef ok fill:#22c55e,stroke:#15803d,color:#06230f,font-weight:bold
+  class A,C step
+  class B dec
+  class D step
+  class E ok`,
+    complexity: { time: "O(n)", space: "O(n)" },
+    solutions: [
+      {
+        language: "python",
+        label: "Hash Set",
+        code: `def longest_consecutive(nums: list[int]) -> int:
+    num_set = set(nums)
+    best = 0
+    for x in num_set:
+        if x - 1 not in num_set:
+            length = 1
+            while x + length in num_set:
+                length += 1
+            best = max(best, length)
+    return best`,
+      },
+      {
+        language: "typescript",
+        label: "Hash Set",
+        code: `function longestConsecutive(nums: number[]): number {
+  const set = new Set(nums);
+  let best = 0;
+  for (const x of set) {
+    if (!set.has(x - 1)) {
+      let length = 1;
+      while (set.has(x + length)) length++;
+      best = Math.max(best, length);
+    }
+  }
+  return best;
+}`,
+      },
+    ],
+    runner: {
+      entry: "longestConsecutive",
+      comparison: "deep",
+      jsStarter: `function longestConsecutive(nums) {
+  // Return the length of the longest consecutive run, in O(n).
+  // TODO: implement
+}`,
+      jsReference: `function longestConsecutive(nums) {
+  const set = new Set(nums);
+  let best = 0;
+  for (const x of set) {
+    if (!set.has(x - 1)) {
+      let length = 1;
+      while (set.has(x + length)) length++;
+      best = Math.max(best, length);
+    }
+  }
+  return best;
+}`,
+    },
+    tests: [
+      { name: "classic", args: [[100, 4, 200, 1, 3, 2]], expected: 4 },
+      { name: "longer", args: [[0, 3, 7, 2, 5, 8, 4, 6, 0, 1]], expected: 9 },
+      { name: "empty", args: [[]], expected: 0 },
+      { name: "single", args: [[5]], expected: 1 },
+    ],
+    hints: ["Only start counting at a sequence's beginning.", "A hash set gives O(1) lookups."],
+    relatedIds: [1, 287, 41],
+  },
 ];
 
 export default problems;
