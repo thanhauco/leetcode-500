@@ -23,6 +23,7 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 104 | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 121 | [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) | Easy | 🪟 Sliding Window | `O(n)` / `O(1)` |
 | 125 | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
+| 128 | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
 | 136 | [Single Number](https://leetcode.com/problems/single-number/) | Easy | 🔟 Bit Manipulation | `O(n)` / `O(1)` |
 | 191 | [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) | Easy | 🔟 Bit Manipulation | `O(set bits)` / `O(1)` |
 | 198 | [House Robber](https://leetcode.com/problems/house-robber/) | Medium | 📈 1-D Dynamic Programming | `O(n)` / `O(1)` |
@@ -32,7 +33,9 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 215 | [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) | Medium | ⛰️ Heap / Priority Queue | `O(n log k)` / `O(k)` |
 | 217 | [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | Easy | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
 | 238 | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(1)` |
+| 242 | [Valid Anagram](https://leetcode.com/problems/valid-anagram/) | Easy | 🔢 Arrays & Hashing | `O(n)` / `O(1)` |
 | 322 | [Coin Change](https://leetcode.com/problems/coin-change/) | Medium | 📈 1-D Dynamic Programming | `O(amount · coins)` / `O(amount)` |
+| 347 | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
 | 704 | [Binary Search](https://leetcode.com/problems/binary-search/) | Easy | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 739 | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
 | 743 | [Network Delay Time](https://leetcode.com/problems/network-delay-time/) | Medium | 🧭 Advanced Graphs | `O(E log V)` / `O(V + E)` |
