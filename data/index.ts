@@ -5,12 +5,29 @@
 export * from "./types.ts";
 export { categories, categoryBySlug, categorySlugs } from "./categories.ts";
 export { companies, companyBySlug } from "./companies.ts";
-export { problems } from "./problems.ts";
 
 import { categories } from "./categories.ts";
 import { companies } from "./companies.ts";
-import { problems } from "./problems.ts";
+import { problems as curatedProblems } from "./problems.ts";
+import { catalogProblems } from "./catalog/index.ts";
 import type { CategorySlug, Difficulty, Problem } from "./types.ts";
+
+/**
+ * The full problem set: the curated, full-treatment core first, then the broader
+ * catalog, de-duplicated by id (curated entries win on collision).
+ */
+function dedupeById(list: Problem[]): Problem[] {
+  const seen = new Set<number>();
+  const out: Problem[] = [];
+  for (const p of list) {
+    if (seen.has(p.id)) continue;
+    seen.add(p.id);
+    out.push(p);
+  }
+  return out;
+}
+
+export const problems: Problem[] = dedupeById([...curatedProblems, ...catalogProblems]);
 
 /** Look up a single problem by its URL slug. */
 export function getProblemBySlug(slug: string): Problem | undefined {
