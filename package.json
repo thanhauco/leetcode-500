@@ -20,7 +20,8 @@
     "start": "npm --prefix web run start",
     "lint": "npm --prefix web run lint",
     "web:install": "npm --prefix web install",
-    "gen:solutions": "node scripts/generate-solutions.ts"
+    "gen:solutions": "node scripts/generate-solutions.ts",
+    "verify": "node scripts/verify-solutions.ts"
   },
   "workspaces": [
     "data",
