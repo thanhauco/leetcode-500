@@ -9,4 +9,9 @@ import type { Problem } from "../types.ts";
  * I/O is JSON-friendly) a runnable `runner` + `tests` that the verifier executes.
  */
 // Batch imports are wired in here as each validated batch lands.
-export const catalogProblems: Problem[] = [];
+import { batchA } from "./batchA.ts";
+import { batchB } from "./batchB.ts";
+import { batchC } from "./batchC.ts";
+import { batchD } from "./batchD.ts";
+
+export const catalogProblems: Problem[] = [...batchA, ...batchB, ...batchC, ...batchD];
