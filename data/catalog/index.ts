@@ -13,5 +13,18 @@ import { batchA } from "./batchA.ts";
 import { batchB } from "./batchB.ts";
 import { batchC } from "./batchC.ts";
 import { batchD } from "./batchD.ts";
+import { batchE } from "./batchE.ts";
+import { batchF } from "./batchF.ts";
+import { batchG } from "./batchG.ts";
+import { batchH } from "./batchH.ts";
 
-export const catalogProblems: Problem[] = [...batchA, ...batchB, ...batchC, ...batchD];
+export const catalogProblems: Problem[] = [
+  ...batchA,
+  ...batchB,
+  ...batchC,
+  ...batchD,
+  ...batchE,
+  ...batchF,
+  ...batchG,
+  ...batchH,
+];
