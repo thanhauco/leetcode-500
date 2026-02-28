@@ -17,6 +17,10 @@ import { batchE } from "./batchE.ts";
 import { batchF } from "./batchF.ts";
 import { batchG } from "./batchG.ts";
 import { batchH } from "./batchH.ts";
+import { batchI } from "./batchI.ts";
+import { batchJ } from "./batchJ.ts";
+import { batchK } from "./batchK.ts";
+import { batchL } from "./batchL.ts";
 
 export const catalogProblems: Problem[] = [
   ...batchA,
@@ -27,4 +31,8 @@ export const catalogProblems: Problem[] = [
   ...batchF,
   ...batchG,
   ...batchH,
+  ...batchI,
+  ...batchJ,
+  ...batchK,
+  ...batchL,
 ];
