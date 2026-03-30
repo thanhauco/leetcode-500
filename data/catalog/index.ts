@@ -21,7 +21,11 @@ import { batchI } from "./batchI.ts";
 import { batchJ } from "./batchJ.ts";
 import { batchK } from "./batchK.ts";
 import { batchL } from "./batchL.ts";
-
+import { batchM } from "./batchM.ts";
+import { batchN } from "./batchN.ts";
+import { batchO } from "./batchO.ts";
+import { batchP } from "./batchP.ts";
+import { batchQ } from "./batchQ.ts";
 export const catalogProblems: Problem[] = [
   ...batchA,
   ...batchB,
@@ -35,4 +39,9 @@ export const catalogProblems: Problem[] = [
   ...batchJ,
   ...batchK,
   ...batchL,
+  ...batchM,
+  ...batchN,
+  ...batchO,
+  ...batchP,
+  ...batchQ,
 ];
