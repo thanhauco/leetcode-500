@@ -16,6 +16,7 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 8 | [String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/) | Medium | 📐 Math & Geometry | `O(n)` / `O(1)` |
 | 9 | [Palindrome Number](https://leetcode.com/problems/palindrome-number/) | Easy | 📐 Math & Geometry | `O(log n)` / `O(1)` |
 | 11 | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | Medium | ↔️ Two Pointers | `O(n)` / `O(1)` |
+| 12 | [Integer to Roman](https://leetcode.com/problems/integer-to-roman/) | Medium | 📐 Math & Geometry | `O(1)` / `O(1)` |
 | 13 | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/) | Easy | 📐 Math & Geometry | `O(n)` / `O(1)` |
 | 14 | [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) | Easy | 🔢 Arrays & Hashing | `O(S)` / `O(1)` |
 | 15 | [3Sum](https://leetcode.com/problems/3sum/) | Medium | ↔️ Two Pointers | `O(n²)` / `O(1)` |
@@ -31,12 +32,15 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 25 | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) | Hard | 🔗 Linked List | `O(n)` / `O(1)` |
 | 26 | [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
 | 27 | [Remove Element](https://leetcode.com/problems/remove-element/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
+| 28 | [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) | Easy | ↔️ Two Pointers | `O(n*m)` / `O(1)` |
+| 30 | [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) | Hard | 🪟 Sliding Window | `O(n*m)` / `O(m)` |
 | 31 | [Next Permutation](https://leetcode.com/problems/next-permutation/) | Medium | ↔️ Two Pointers | `O(n)` / `O(1)` |
 | 32 | [Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) | Hard | 📚 Stack | `O(n)` / `O(n)` |
 | 33 | [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) | Medium | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 34 | [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | Medium | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 35 | [Search Insert Position](https://leetcode.com/problems/search-insert-position/) | Easy | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 36 | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | Medium | 🔢 Arrays & Hashing | `O(1)` / `O(1)` |
+| 37 | [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) | Hard | 🎯 Backtracking | `O(9^m)` / `O(m)` |
 | 39 | [Combination Sum](https://leetcode.com/problems/combination-sum/) | Medium | 🎯 Backtracking | `O(n^(T/m))` / `O(T/m)` |
 | 40 | [Combination Sum II](https://leetcode.com/problems/combination-sum-ii/) | Medium | 🎯 Backtracking | `O(2^n)` / `O(n)` |
 | 41 | [First Missing Positive](https://leetcode.com/problems/first-missing-positive/) | Hard | 🔢 Arrays & Hashing | `O(n)` / `O(1)` |
@@ -56,11 +60,13 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 56 | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Medium | 📅 Intervals | `O(n log n)` / `O(n)` |
 | 57 | [Insert Interval](https://leetcode.com/problems/insert-interval/) | Medium | 📅 Intervals | `O(n)` / `O(n)` |
 | 58 | [Length of Last Word](https://leetcode.com/problems/length-of-last-word/) | Easy | 🔢 Arrays & Hashing | `O(n)` / `O(1)` |
+| 59 | [Spiral Matrix II](https://leetcode.com/problems/spiral-matrix-ii/) | Medium | 📐 Math & Geometry | `O(n^2)` / `O(1)` |
 | 61 | [Rotate List](https://leetcode.com/problems/rotate-list/) | Medium | 🔗 Linked List | `O(n)` / `O(1)` |
 | 62 | [Unique Paths](https://leetcode.com/problems/unique-paths/) | Medium | 🧮 2-D Dynamic Programming | `O(m·n)` / `O(n)` |
 | 63 | [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/) | Medium | 🧮 2-D Dynamic Programming | `O(m · n)` / `O(n)` |
 | 64 | [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/) | Medium | 🧮 2-D Dynamic Programming | `O(m · n)` / `O(n)` |
 | 66 | [Plus One](https://leetcode.com/problems/plus-one/) | Easy | 📐 Math & Geometry | `O(n)` / `O(n)` |
+| 67 | [Add Binary](https://leetcode.com/problems/add-binary/) | Easy | 📐 Math & Geometry | `O(max(n, m))` / `O(max(n, m))` |
 | 69 | [Sqrt(x)](https://leetcode.com/problems/sqrtx/) | Easy | 🔍 Binary Search | `O(log x)` / `O(1)` |
 | 70 | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) | Easy | 📈 1-D Dynamic Programming | `O(n)` / `O(1)` |
 | 71 | [Simplify Path](https://leetcode.com/problems/simplify-path/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
@@ -77,11 +83,14 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 84 | [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) | Hard | 📚 Stack | `O(n)` / `O(n)` |
 | 86 | [Partition List](https://leetcode.com/problems/partition-list/) | Medium | 🔗 Linked List | `O(n)` / `O(1)` |
 | 88 | [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/) | Easy | ↔️ Two Pointers | `O(m + n)` / `O(m + n)` |
+| 89 | [Gray Code](https://leetcode.com/problems/gray-code/) | Medium | 🔟 Bit Manipulation | `O(2^n)` / `O(2^n)` |
 | 90 | [Subsets II](https://leetcode.com/problems/subsets-ii/) | Medium | 🎯 Backtracking | `O(n·2^n)` / `O(n)` |
 | 91 | [Decode Ways](https://leetcode.com/problems/decode-ways/) | Medium | 📈 1-D Dynamic Programming | `O(n)` / `O(1)` |
 | 92 | [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) | Medium | 🔗 Linked List | `O(n)` / `O(1)` |
 | 93 | [Restore IP Addresses](https://leetcode.com/problems/restore-ip-addresses/) | Medium | 🎯 Backtracking | `O(1)` / `O(1)` |
 | 94 | [Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
+| 95 | [Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/) | Medium | 🌳 Trees | `O(Cₙ · n)` / `O(Cₙ · n)` |
+| 96 | [Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/) | Medium | 📈 1-D Dynamic Programming | `O(n^2)` / `O(n)` |
 | 97 | [Interleaving String](https://leetcode.com/problems/interleaving-string/) | Medium | 🧮 2-D Dynamic Programming | `O(m · n)` / `O(n)` |
 | 98 | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 100 | [Same Tree](https://leetcode.com/problems/same-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
@@ -93,6 +102,7 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 106 | [Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
 | 107 | [Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
 | 108 | [Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) | Easy | 🌳 Trees | `O(n)` / `O(n)` |
+| 109 | [Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/) | Medium | 🌳 Trees | `O(n)` / `O(log n)` |
 | 110 | [Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 111 | [Minimum Depth of Binary Tree](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 112 | [Path Sum](https://leetcode.com/problems/path-sum/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
@@ -100,6 +110,7 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 114 | [Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 120 | [Triangle](https://leetcode.com/problems/triangle/) | Medium | 🧮 2-D Dynamic Programming | `O(n^2)` / `O(n)` |
 | 121 | [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) | Easy | 🪟 Sliding Window | `O(n)` / `O(1)` |
+| 122 | [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | Medium | 💰 Greedy | `O(n)` / `O(1)` |
 | 124 | [Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | Hard | 🌳 Trees | `O(n)` / `O(h)` |
 | 125 | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
 | 127 | [Word Ladder](https://leetcode.com/problems/word-ladder/) | Hard | 🧭 Advanced Graphs | `O(N * L * 26)` / `O(N * L)` |
@@ -138,8 +149,10 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 198 | [House Robber](https://leetcode.com/problems/house-robber/) | Medium | 📈 1-D Dynamic Programming | `O(n)` / `O(1)` |
 | 199 | [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) | Medium | 🌳 Trees | `O(n)` / `O(w)` |
 | 200 | [Number of Islands](https://leetcode.com/problems/number-of-islands/) | Medium | 🕸️ Graphs | `O(m·n)` / `O(m·n)` |
+| 201 | [Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) | Medium | 🔟 Bit Manipulation | `O(log right)` / `O(1)` |
 | 202 | [Happy Number](https://leetcode.com/problems/happy-number/) | Easy | 📐 Math & Geometry | `O(log n)` / `O(log n)` |
 | 203 | [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/) | Easy | 🔗 Linked List | `O(n)` / `O(1)` |
+| 204 | [Count Primes](https://leetcode.com/problems/count-primes/) | Medium | 📐 Math & Geometry | `O(n log log n)` / `O(n)` |
 | 205 | [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) | Easy | 🔢 Arrays & Hashing | `O(n)` / `O(1)` |
 | 206 | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | Easy | 🔗 Linked List | `O(n)` / `O(1)` |
 | 207 | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | 🕸️ Graphs | `O(V + E)` / `O(V + E)` |
@@ -160,6 +173,7 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 226 | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 227 | [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
 | 230 | [Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
+| 231 | [Power of Two](https://leetcode.com/problems/power-of-two/) | Easy | 📐 Math & Geometry | `O(1)` / `O(1)` |
 | 232 | [Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/) | Easy | 📚 Stack | `O(1) amortized per op` / `O(n)` |
 | 234 | [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) | Easy | 🔗 Linked List | `O(n)` / `O(1)` |
 | 235 | [Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | Medium | 🌳 Trees | `O(h)` / `O(1)` |
@@ -170,7 +184,10 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 252 | [Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) | Easy | 📅 Intervals | `O(n log n)` / `O(1)` |
 | 253 | [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) | Medium | 📅 Intervals | `O(n log n)` / `O(n)` |
 | 257 | [Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
+| 260 | [Single Number III](https://leetcode.com/problems/single-number-iii/) | Medium | 🔟 Bit Manipulation | `O(n)` / `O(1)` |
+| 263 | [Ugly Number](https://leetcode.com/problems/ugly-number/) | Easy | 📐 Math & Geometry | `O(log n)` / `O(1)` |
 | 268 | [Missing Number](https://leetcode.com/problems/missing-number/) | Easy | 🔟 Bit Manipulation | `O(n)` / `O(1)` |
+| 279 | [Perfect Squares](https://leetcode.com/problems/perfect-squares/) | Medium | 📈 1-D Dynamic Programming | `O(n·√n)` / `O(n)` |
 | 283 | [Move Zeroes](https://leetcode.com/problems/move-zeroes/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
 | 290 | [Word Pattern](https://leetcode.com/problems/word-pattern/) | Easy | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
 | 295 | [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) | Hard | ⛰️ Heap / Priority Queue | `O(log n) add, O(1) median` / `O(n)` |
@@ -178,14 +195,18 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 309 | [Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/) | Medium | 📈 1-D Dynamic Programming | `O(n)` / `O(1)` |
 | 316 | [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/) | Medium | 📚 Stack | `O(n)` / `O(1)` |
 | 322 | [Coin Change](https://leetcode.com/problems/coin-change/) | Medium | 📈 1-D Dynamic Programming | `O(amount · coins)` / `O(amount)` |
+| 326 | [Power of Three](https://leetcode.com/problems/power-of-three/) | Easy | 📐 Math & Geometry | `O(log n)` / `O(1)` |
 | 328 | [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/) | Medium | 🔗 Linked List | `O(n)` / `O(1)` |
 | 338 | [Counting Bits](https://leetcode.com/problems/counting-bits/) | Easy | 🔟 Bit Manipulation | `O(n)` / `O(n)` |
+| 343 | [Integer Break](https://leetcode.com/problems/integer-break/) | Medium | 📈 1-D Dynamic Programming | `O(n^2)` / `O(n)` |
 | 344 | [Reverse String](https://leetcode.com/problems/reverse-string/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
 | 345 | [Reverse Vowels of a String](https://leetcode.com/problems/reverse-vowels-of-a-string/) | Easy | ↔️ Two Pointers | `O(n)` / `O(n)` |
 | 347 | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
 | 350 | [Intersection of Two Arrays II](https://leetcode.com/problems/intersection-of-two-arrays-ii/) | Easy | 🔢 Arrays & Hashing | `O(m + n)` / `O(min(m, n))` |
 | 367 | [Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/) | Easy | 🔍 Binary Search | `O(log num)` / `O(1)` |
 | 371 | [Sum of Two Integers](https://leetcode.com/problems/sum-of-two-integers/) | Medium | 🔟 Bit Manipulation | `O(1)` / `O(1)` |
+| 373 | [Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/) | Medium | ⛰️ Heap / Priority Queue | `O(k log k)` / `O(k)` |
+| 376 | [Wiggle Subsequence](https://leetcode.com/problems/wiggle-subsequence/) | Medium | 💰 Greedy | `O(n)` / `O(1)` |
 | 377 | [Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/) | Medium | 📈 1-D Dynamic Programming | `O(target * len(nums))` / `O(target)` |
 | 378 | [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/) | Medium | ⛰️ Heap / Priority Queue | `O(n² log n)` / `O(n²)` |
 | 383 | [Ransom Note](https://leetcode.com/problems/ransom-note/) | Easy | 🔢 Arrays & Hashing | `O(n + m)` / `O(1)` |
@@ -196,7 +217,9 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 404 | [Sum of Left Leaves](https://leetcode.com/problems/sum-of-left-leaves/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 410 | [Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/) | Hard | 🔍 Binary Search | `O(n log(sum))` / `O(1)` |
 | 412 | [Fizz Buzz](https://leetcode.com/problems/fizz-buzz/) | Easy | 📐 Math & Geometry | `O(n)` / `O(n)` |
+| 415 | [Add Strings](https://leetcode.com/problems/add-strings/) | Easy | 📐 Math & Geometry | `O(max(n, m))` / `O(max(n, m))` |
 | 417 | [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) | Medium | 🕸️ Graphs | `O(m·n)` / `O(m·n)` |
+| 421 | [Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) | Medium | 🔟 Bit Manipulation | `O(32n)` / `O(n)` |
 | 424 | [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) | Medium | 🪟 Sliding Window | `O(n)` / `O(1)` |
 | 435 | [Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Medium | 📅 Intervals | `O(n log n)` / `O(1)` |
 | 437 | [Path Sum III](https://leetcode.com/problems/path-sum-iii/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
@@ -205,25 +228,44 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 442 | [Find All Duplicates in an Array](https://leetcode.com/problems/find-all-duplicates-in-an-array/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(1)` |
 | 448 | [Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/) | Easy | 🔢 Arrays & Hashing | `O(n)` / `O(1)` |
 | 451 | [Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/) | Medium | 🔢 Arrays & Hashing | `O(n + k log k)` / `O(n)` |
+| 452 | [Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | Medium | 📅 Intervals | `O(n log n)` / `O(1)` |
+| 455 | [Assign Cookies](https://leetcode.com/problems/assign-cookies/) | Easy | 💰 Greedy | `O(n log n + m log m)` / `O(1)` |
+| 461 | [Hamming Distance](https://leetcode.com/problems/hamming-distance/) | Easy | 🔟 Bit Manipulation | `O(1)` / `O(1)` |
 | 463 | [Island Perimeter](https://leetcode.com/problems/island-perimeter/) | Easy | 🕸️ Graphs | `O(rows * cols)` / `O(1)` |
+| 477 | [Total Hamming Distance](https://leetcode.com/problems/total-hamming-distance/) | Medium | 🔟 Bit Manipulation | `O(32n)` / `O(1)` |
+| 485 | [Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/) | Easy | 🪟 Sliding Window | `O(n)` / `O(1)` |
+| 491 | [Non-decreasing Subsequences](https://leetcode.com/problems/non-decreasing-subsequences/) | Medium | 🎯 Backtracking | `O(2^n · n)` / `O(n)` |
 | 496 | [Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/) | Easy | 📚 Stack | `O(n + m)` / `O(n)` |
+| 502 | [IPO](https://leetcode.com/problems/ipo/) | Hard | ⛰️ Heap / Priority Queue | `O(n log n)` / `O(n)` |
 | 503 | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
+| 506 | [Relative Ranks](https://leetcode.com/problems/relative-ranks/) | Easy | ⛰️ Heap / Priority Queue | `O(n log n)` / `O(n)` |
+| 513 | [Find Bottom Left Tree Value](https://leetcode.com/problems/find-bottom-left-tree-value/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
+| 515 | [Find Largest Value in Each Tree Row](https://leetcode.com/problems/find-largest-value-in-each-tree-row/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
+| 516 | [Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/) | Medium | 🧮 2-D Dynamic Programming | `O(n^2)` / `O(n^2)` |
 | 518 | [Coin Change II](https://leetcode.com/problems/coin-change-ii/) | Medium | 📈 1-D Dynamic Programming | `O(amount · k)` / `O(amount)` |
 | 525 | [Contiguous Array](https://leetcode.com/problems/contiguous-array/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
+| 526 | [Beautiful Arrangement](https://leetcode.com/problems/beautiful-arrangement/) | Medium | 🎯 Backtracking | `O(k)` / `O(n)` |
 | 538 | [Convert BST to Greater Tree](https://leetcode.com/problems/convert-bst-to-greater-tree/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 540 | [Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/) | Medium | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 542 | [01 Matrix](https://leetcode.com/problems/01-matrix/) | Medium | 🕸️ Graphs | `O(rows * cols)` / `O(rows * cols)` |
 | 543 | [Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 547 | [Number of Provinces](https://leetcode.com/problems/number-of-provinces/) | Medium | 🕸️ Graphs | `O(n²)` / `O(n)` |
 | 560 | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
+| 561 | [Array Partition](https://leetcode.com/problems/array-partition/) | Easy | 🔢 Arrays & Hashing | `O(n log n)` / `O(1)` |
 | 567 | [Permutation in String](https://leetcode.com/problems/permutation-in-string/) | Medium | 🪟 Sliding Window | `O(n)` / `O(1)` |
 | 572 | [Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/) | Easy | 🌳 Trees | `O(m · n)` / `O(h)` |
+| 605 | [Can Place Flowers](https://leetcode.com/problems/can-place-flowers/) | Easy | 💰 Greedy | `O(n)` / `O(1)` |
+| 606 | [Construct String from Binary Tree](https://leetcode.com/problems/construct-string-from-binary-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 617 | [Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
 | 621 | [Task Scheduler](https://leetcode.com/problems/task-scheduler/) | Medium | ⛰️ Heap / Priority Queue | `O(t)` / `O(1)` |
 | 643 | [Maximum Average Subarray I](https://leetcode.com/problems/maximum-average-subarray-i/) | Easy | 🪟 Sliding Window | `O(n)` / `O(1)` |
 | 648 | [Replace Words](https://leetcode.com/problems/replace-words/) | Medium | 🔤 Tries | `O(total chars)` / `O(dictionary chars)` |
 | 653 | [Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/) | Easy | 🌳 Trees | `O(n)` / `O(n)` |
+| 654 | [Maximum Binary Tree](https://leetcode.com/problems/maximum-binary-tree/) | Medium | 🌳 Trees | `O(n²)` / `O(n)` |
 | 658 | [Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/) | Medium | 🔍 Binary Search | `O(log(n − k) + k)` / `O(k)` |
+| 662 | [Maximum Width of Binary Tree](https://leetcode.com/problems/maximum-width-of-binary-tree/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
+| 671 | [Second Minimum Node In a Binary Tree](https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/) | Easy | 🌳 Trees | `O(n)` / `O(h)` |
+| 677 | [Map Sum Pairs](https://leetcode.com/problems/map-sum-pairs/) | Medium | 🔤 Tries | `O(k) per sum` / `O(total keys)` |
 | 678 | [Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/) | Medium | 💰 Greedy | `O(n)` / `O(1)` |
 | 680 | [Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
 | 682 | [Baseball Game](https://leetcode.com/problems/baseball-game/) | Easy | 📚 Stack | `O(n)` / `O(n)` |
@@ -237,7 +279,9 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 704 | [Binary Search](https://leetcode.com/problems/binary-search/) | Easy | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 705 | [Design HashSet](https://leetcode.com/problems/design-hashset/) | Easy | 🔢 Arrays & Hashing | `O(1) average` / `O(n)` |
 | 706 | [Design HashMap](https://leetcode.com/problems/design-hashmap/) | Easy | 🔢 Arrays & Hashing | `O(1) average` / `O(n)` |
+| 707 | [Design Linked List](https://leetcode.com/problems/design-linked-list/) | Medium | 🔗 Linked List | `O(1) ends, O(n) indexed` / `O(n)` |
 | 720 | [Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) | Medium | 🔤 Tries | `O(Σ word length)` / `O(Σ word length)` |
+| 729 | [My Calendar I](https://leetcode.com/problems/my-calendar-i/) | Medium | 📅 Intervals | `O(n) per book` / `O(n)` |
 | 733 | [Flood Fill](https://leetcode.com/problems/flood-fill/) | Easy | 🕸️ Graphs | `O(m·n)` / `O(m·n)` |
 | 735 | [Asteroid Collision](https://leetcode.com/problems/asteroid-collision/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
 | 739 | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
@@ -245,39 +289,75 @@ Organized as `solutions/<language>/<category>/<slug>.<ext>`.
 | 743 | [Network Delay Time](https://leetcode.com/problems/network-delay-time/) | Medium | 🧭 Advanced Graphs | `O(E log V)` / `O(V + E)` |
 | 746 | [Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/) | Easy | 📈 1-D Dynamic Programming | `O(n)` / `O(1)` |
 | 763 | [Partition Labels](https://leetcode.com/problems/partition-labels/) | Medium | 💰 Greedy | `O(n)` / `O(1)` |
+| 778 | [Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water/) | Hard | 🧭 Advanced Graphs | `O(n^2 log n)` / `O(n^2)` |
 | 787 | [Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | Medium | 🧭 Advanced Graphs | `O(k · E)` / `O(n)` |
 | 791 | [Custom Sort String](https://leetcode.com/problems/custom-sort-string/) | Medium | 🔢 Arrays & Hashing | `O(n + m)` / `O(n)` |
 | 797 | [All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/) | Medium | 🕸️ Graphs | `O(2^n * n)` / `O(n)` |
 | 802 | [Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) | Medium | 🕸️ Graphs | `O(V + E)` / `O(V + E)` |
+| 817 | [Linked List Components](https://leetcode.com/problems/linked-list-components/) | Medium | 🔗 Linked List | `O(n + m)` / `O(m)` |
 | 819 | [Most Common Word](https://leetcode.com/problems/most-common-word/) | Easy | 🔢 Arrays & Hashing | `O(n)` / `O(n)` |
 | 841 | [Keys and Rooms](https://leetcode.com/problems/keys-and-rooms/) | Medium | 🕸️ Graphs | `O(V + E)` / `O(V)` |
+| 846 | [Hand of Straights](https://leetcode.com/problems/hand-of-straights/) | Medium | 💰 Greedy | `O(n log n)` / `O(n)` |
 | 852 | [Peak Index in a Mountain Array](https://leetcode.com/problems/peak-index-in-a-mountain-array/) | Medium | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 853 | [Car Fleet](https://leetcode.com/problems/car-fleet/) | Medium | 📚 Stack | `O(n log n)` / `O(n)` |
 | 856 | [Score of Parentheses](https://leetcode.com/problems/score-of-parentheses/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
+| 863 | [All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
 | 875 | [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | Medium | 🔍 Binary Search | `O(n log m)` / `O(1)` |
 | 876 | [Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/) | Easy | 🔗 Linked List | `O(n)` / `O(1)` |
+| 894 | [All Possible Full Binary Trees](https://leetcode.com/problems/all-possible-full-binary-trees/) | Medium | 🌳 Trees | `O(Cₙ)` / `O(Cₙ)` |
 | 901 | [Online Stock Span](https://leetcode.com/problems/online-stock-span/) | Medium | 📚 Stack | `O(1) amortized per call` / `O(n)` |
 | 904 | [Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/) | Medium | 🪟 Sliding Window | `O(n)` / `O(1)` |
 | 905 | [Sort Array By Parity](https://leetcode.com/problems/sort-array-by-parity/) | Easy | ↔️ Two Pointers | `O(n)` / `O(1)` |
+| 921 | [Minimum Add to Make Parentheses Valid](https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/) | Medium | 📚 Stack | `O(n)` / `O(1)` |
+| 922 | [Sort Array By Parity II](https://leetcode.com/problems/sort-array-by-parity-ii/) | Medium | ↔️ Two Pointers | `O(n)` / `O(n)` |
 | 946 | [Validate Stack Sequences](https://leetcode.com/problems/validate-stack-sequences/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
+| 947 | [Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/) | Medium | 🧭 Advanced Graphs | `O(n·α(n))` / `O(n)` |
+| 951 | [Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/) | Medium | 🌳 Trees | `O(min(n, m))` / `O(min(h₁, h₂))` |
 | 973 | [K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) | Medium | ⛰️ Heap / Priority Queue | `O(n log n)` / `O(n)` |
 | 974 | [Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/) | Medium | 🔢 Arrays & Hashing | `O(n)` / `O(k)` |
 | 977 | [Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/) | Easy | ↔️ Two Pointers | `O(n)` / `O(n)` |
 | 983 | [Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/) | Medium | 📈 1-D Dynamic Programming | `O(last day)` / `O(last day)` |
+| 986 | [Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/) | Medium | 📅 Intervals | `O(m + n)` / `O(1)` |
+| 988 | [Smallest String Starting From Leaf](https://leetcode.com/problems/smallest-string-starting-from-leaf/) | Medium | 🌳 Trees | `O(n · h)` / `O(h)` |
+| 989 | [Add to Array-Form of Integer](https://leetcode.com/problems/add-to-array-form-of-integer/) | Easy | 📐 Math & Geometry | `O(max(n, log k))` / `O(max(n, log k))` |
+| 990 | [Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) | Medium | 🧭 Advanced Graphs | `O(n·α(26))` / `O(1)` |
 | 994 | [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/) | Medium | 🕸️ Graphs | `O(m·n)` / `O(m·n)` |
 | 1004 | [Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/) | Medium | 🪟 Sliding Window | `O(n)` / `O(1)` |
+| 1005 | [Maximize Sum Of Array After K Negations](https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/) | Easy | 💰 Greedy | `O(n log n)` / `O(1)` |
 | 1011 | [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | Medium | 🔍 Binary Search | `O(n log(sum))` / `O(1)` |
+| 1019 | [Next Greater Node In Linked List](https://leetcode.com/problems/next-greater-node-in-linked-list/) | Medium | 🔗 Linked List | `O(n)` / `O(n)` |
+| 1020 | [Number of Enclaves](https://leetcode.com/problems/number-of-enclaves/) | Medium | 🕸️ Graphs | `O(m·n)` / `O(m·n)` |
+| 1026 | [Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 1046 | [Last Stone Weight](https://leetcode.com/problems/last-stone-weight/) | Easy | ⛰️ Heap / Priority Queue | `O(n log n)` / `O(n)` |
 | 1047 | [Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) | Easy | 📚 Stack | `O(n)` / `O(n)` |
+| 1110 | [Delete Nodes And Return Forest](https://leetcode.com/problems/delete-nodes-and-return-forest/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
+| 1123 | [Lowest Common Ancestor of Deepest Leaves](https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
+| 1137 | [N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/) | Easy | 📈 1-D Dynamic Programming | `O(n)` / `O(1)` |
 | 1143 | [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Medium | 🧮 2-D Dynamic Programming | `O(m·n)` / `O(m·n)` |
+| 1161 | [Maximum Level Sum of a Binary Tree](https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
+| 1162 | [As Far from Land as Possible](https://leetcode.com/problems/as-far-from-land-as-possible/) | Medium | 🕸️ Graphs | `O(n^2)` / `O(n^2)` |
+| 1192 | [Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/) | Hard | 🧭 Advanced Graphs | `O(n + e)` / `O(n + e)` |
+| 1209 | [Remove All Adjacent Duplicates in String II](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
+| 1239 | [Maximum Length of a Concatenated String with Unique Characters](https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/) | Medium | 🎯 Backtracking | `O(2^n)` / `O(n)` |
+| 1249 | [Minimum Remove to Make Valid Parentheses](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) | Medium | 📚 Stack | `O(n)` / `O(n)` |
+| 1254 | [Number of Closed Islands](https://leetcode.com/problems/number-of-closed-islands/) | Medium | 🕸️ Graphs | `O(m·n)` / `O(m·n)` |
+| 1268 | [Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/) | Medium | 🔤 Tries | `O(p log p + p·L)` / `O(1)` |
 | 1283 | [Find the Smallest Divisor Given a Threshold](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/) | Medium | 🔍 Binary Search | `O(n log(maxNum))` / `O(1)` |
+| 1288 | [Remove Covered Intervals](https://leetcode.com/problems/remove-covered-intervals/) | Medium | 📅 Intervals | `O(n log n)` / `O(1)` |
 | 1290 | [Convert Binary Number in a Linked List to Integer](https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/) | Easy | 🔗 Linked List | `O(n)` / `O(1)` |
+| 1325 | [Delete Leaves With a Given Value](https://leetcode.com/problems/delete-leaves-with-a-given-value/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 1337 | [The K Weakest Rows in a Matrix](https://leetcode.com/problems/the-k-weakest-rows-in-a-matrix/) | Easy | ⛰️ Heap / Priority Queue | `O(m·n + m log m)` / `O(m)` |
+| 1339 | [Maximum Product of Splitted Binary Tree](https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/) | Medium | 🌳 Trees | `O(n)` / `O(n)` |
+| 1372 | [Longest ZigZag Path in a Binary Tree](https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 1448 | [Count Good Nodes in Binary Tree](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 1456 | [Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/) | Medium | 🪟 Sliding Window | `O(n)` / `O(1)` |
+| 1457 | [Pseudo-Palindromic Paths in a Binary Tree](https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/) | Medium | 🌳 Trees | `O(n)` / `O(h)` |
 | 1466 | [Reorder Routes to Make All Paths Lead to the City Zero](https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/) | Medium | 🕸️ Graphs | `O(n)` / `O(n)` |
 | 1482 | [Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/) | Medium | 🔍 Binary Search | `O(n log(maxDay))` / `O(1)` |
+| 1539 | [Kth Missing Positive Number](https://leetcode.com/problems/kth-missing-positive-number/) | Easy | 🔍 Binary Search | `O(log n)` / `O(1)` |
 | 1584 | [Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) | Medium | 🧭 Advanced Graphs | `O(n^2)` / `O(n)` |
 | 1631 | [Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/) | Medium | 🧭 Advanced Graphs | `O(R * C * log(R * C))` / `O(R * C)` |
+| 1838 | [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element/) | Medium | 🪟 Sliding Window | `O(n log n)` / `O(1)` |
 | 1971 | [Find if Path Exists in Graph](https://leetcode.com/problems/find-if-path-exists-in-graph/) | Easy | 🕸️ Graphs | `O((V + E) * α(V))` / `O(V)` |
+| 1985 | [Find the Kth Largest Integer in the Array](https://leetcode.com/problems/find-the-kth-largest-integer-in-the-array/) | Medium | ⛰️ Heap / Priority Queue | `O(n log n · L)` / `O(n)` |
 | 2300 | [Successful Pairs of Spells and Potions](https://leetcode.com/problems/successful-pairs-of-spells-and-potions/) | Medium | 🔍 Binary Search | `O((n + m) log m)` / `O(m)` |
