@@ -1,12 +1,12 @@
 # 🧠 LeetCode 500 — The 2025–2026 Interview Prep Repo
 
-> A **full-stack**, data-driven study system for the **500 most frequently asked LeetCode
+> A **full-stack**, data-driven study system for **500+ of the most frequently asked LeetCode
 > questions** of the 2025–2026 hiring cycle — categorized by pattern, mapped to the companies
 > that ask them, and explained with diagrams, complexity analysis, and clean multi-language
-> solutions.
+> solutions. **Every solution is executed against its own test cases — 505/505 verified.**
 
 <p align="center">
-  <img alt="Problems" src="https://img.shields.io/badge/Problems-500%20curated-6366f1" />
+  <img alt="Problems" src="https://img.shields.io/badge/Problems-505%20verified-6366f1" />
   <img alt="Categories" src="https://img.shields.io/badge/Categories-18%20patterns-22c55e" />
   <img alt="Web" src="https://img.shields.io/badge/Web-Next.js%2015-000000" />
   <img alt="License" src="https://img.shields.io/badge/License-MIT-blue" />
@@ -204,16 +204,25 @@ LeetCode statistic. Sort by it to spend your time where it counts.
 
 ---
 
-## 🤝 Contributing / extending to the full 500
+## 🤝 Contributing / extending the set
 
-This repo ships a **curated, fully-explained core** plus a schema designed to scale to all 500.
-To add a problem, append one typed record to [data/problems.ts](data/problems.ts) — the web app,
-docs, and filters pick it up automatically. See **[docs/roadmap.md](docs/roadmap.md)** for the
-contribution checklist.
+This repo ships **505 problems**, each with a runnable reference solution that is **executed
+against its own test cases** by [scripts/verify-solutions.ts](scripts/verify-solutions.ts):
+
+```bash
+npm run verify   # runs every reference solution against its tests — must stay green
+```
+
+The dataset is split into a curated, full-treatment core ([data/problems.ts](data/problems.ts) —
+statements, pseudocode, colorful diagrams) and a broader catalog
+([data/catalog/](data/catalog/)). To add a problem, append one typed record (the web app, docs,
+filters, and playground pick it up automatically) and run `npm run verify`. See
+**[docs/roadmap.md](docs/roadmap.md)** for the full checklist.
 
 ---
 
 ## ⚖️ License & disclaimer
 
-[MIT](LICENSE). Problem *statements* belong to LeetCode; this repo links to the originals and
-provides original explanations, categorizations, and solutions for educational use.
+[MIT](LICENSE). Problem *statements here are original paraphrases* — the official wording belongs
+to LeetCode; this repo links to the originals and provides its own explanations,
+categorizations, and solutions for educational use.
